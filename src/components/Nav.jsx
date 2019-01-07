@@ -1,14 +1,15 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { Button } from '@material-ui/core';
 
-class Nav extends Component {
 
-  render() {
-    return (
-      <div className="nav">
-        <span>this is the navbar</span>
-      </div>
-    );
-  }
+const Nav = ({ topics }) => {
+  return (
+    <div className="nav">
+      {topics.map(({ slug }) => {
+        return <Button key={slug}>{slug}</Button>
+      })}
+    </div>
+  );
 }
 
 export default Nav;

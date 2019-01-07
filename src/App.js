@@ -6,10 +6,13 @@ import Articles from './components/Articles';
 import SideBar from './components/SideBar';
 import Footer from './components/Footer';
 import Auth from './components/Auth';
+import { Router } from '@reach/router';
+import * as api from './api';
 
 class App extends Component {
   state = {
-    user: ''
+    user: '',
+    topics: []
   }
 
   login = (user) => {
@@ -18,14 +21,31 @@ class App extends Component {
     })
   }
 
+  componentDidMount() {
+    this.fetchTopics();
+  }
+
+  fetchTopics() {
+    api
+      .getTopics()
+      .then(topics => {
+        this.setState({
+          topics: topics
+        })
+      })
+  }
+
   render() {
-    const { user } = this.state;
+    const { user, topics } = this.state;
     return (
       <div className="App">
         <Auth user={user} login={this.login}>
           <Header />
-          <Nav />
-          <Articles />
+          <Nav topics={topics} />
+          <Router className="articles">
+            <Articles user={user} path="/" />
+            <Articles user={user} path="/topics/:topic" />
+          </Router>
           <SideBar />
           <Footer />
         </Auth>
