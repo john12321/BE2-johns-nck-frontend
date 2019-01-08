@@ -18,6 +18,11 @@
   background-color: lightblue;
 }
 
+.header-logo {
+  height : 30px;
+  width: 40px;
+}
+
 /* ---------------------nav component -----------------  */
 .nav {
   grid-area: nav;

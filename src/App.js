@@ -40,7 +40,7 @@ class App extends Component {
     return (
       <div className="App">
         <Auth user={user} login={this.login}>
-          <Header />
+          <Header user={user} />
           <Nav topics={topics} />
           <Router className="articles">
             <Articles user={user} path="/" />
