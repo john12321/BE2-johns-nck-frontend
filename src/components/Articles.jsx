@@ -16,9 +16,9 @@ class Articles extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { slug } = this.props;
-    if (slug !== prevProps.slug) {
-      this.fetchArticles(slug);
+    const { topic } = this.props;
+    if (topic !== prevProps.topic) {
+      this.fetchArticles(topic);
     }
   }
 
@@ -26,9 +26,9 @@ class Articles extends Component {
     api
       .getArticles(topic)
       .then(articles => {
-        this.setState(prevState => ({
+        this.setState({
           articles
-        }));
+        });
       })
   }
   render(props) {

@@ -4,7 +4,7 @@ import { Input, Button, Card, CardHeader, Avatar, Typography } from '@material-u
 
 class LoginForm extends Component {
   state = {
-    username: '',
+    username: 'jessjelly',
     error: false
   }
 

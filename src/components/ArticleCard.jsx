@@ -10,7 +10,7 @@ const ArticleCard = ({ article, user }) => {
     // comment_count,
     created_at,
     title,
-    // topic,
+    topic,
     // votes
   } = article
 
@@ -23,6 +23,9 @@ const ArticleCard = ({ article, user }) => {
         <CardHeader title={title} subheader={author}>
         </CardHeader>
         <CardContent>
+          <Typography>
+            topic: {topic}
+          </Typography>
           <Typography>
             created at: {formattedDate}
           </Typography>
