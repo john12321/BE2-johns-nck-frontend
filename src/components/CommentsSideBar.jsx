@@ -47,7 +47,7 @@ class CommentsSideBar extends Component {
 
     return (
       <div>
-        <h3>Comments</h3>
+        <h3>Latest Comments</h3>
         <CommentPost user={user}
           addComment={this.addComment}
           article_id={article_id} />

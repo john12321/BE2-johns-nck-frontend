@@ -32,9 +32,9 @@ class CommentPost extends Component {
           id="comment"
           value={this.state.comment}
         />
-        <button variant="outlined" >
+        <Button type="submit" variant="outlined" onSubmit={this.handleSubmit}>
           submit
-        </button>
+        </Button>
       </form>
     );
   }
