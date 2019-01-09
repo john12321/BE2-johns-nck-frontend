@@ -12,6 +12,14 @@ export const getTopics = async () => {
   return data.topics;
 }
 
+export const postTopic = async (slug, description) => {
+  const { data } = await axios.post(`${BASE_URL}/topics`, {
+    slug,
+    description,
+  });
+  return data.topic;
+};
+
 export const getArticles = async (topic) => {
   const URL = topic ? `${BASE_URL}/topics/${topic}/articles` : `${BASE_URL}/articles`;
   const { data } = await axios.get(URL);
@@ -45,4 +53,12 @@ export const updateVotes = async (article_id, voteInc, comment_id) => {
   await axios.patch(URL, {
     inc_votes: voteInc
   });
+};
+
+export const postArticle = async (topic, newArticle) => {
+  const { data } = await axios.post(
+    `${BASE_URL}/topics/${topic}/articles`,
+    newArticle,
+  );
+  return data.article;
 };
