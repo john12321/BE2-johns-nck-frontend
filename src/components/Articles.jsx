@@ -32,6 +32,7 @@ class Articles extends Component {
       })
   }
   render(props) {
+    // console.log(this.props)
     const { articles } = this.state
     let cardContent = null;
     if (!this.state.isLoading) {

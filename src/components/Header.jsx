@@ -11,7 +11,7 @@ const Header = ({ user }) => {
           <img className="header-logo" src="https://northcoders.com/images/logos/learn_to_code_manchester_rw_original.png"
             alt="Northcoders logo"></img>
           <Typography type="title" color="default" style={{ flex: 1 }}>
-            {`You are logged in as ${user.username}`}
+            {`Welcome back ${user.username}`}
           </Typography>
           <div>
             <Button variant="outlined" color="secondary">

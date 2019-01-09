@@ -33,7 +33,7 @@ class LoginForm extends Component {
 
 
   componentDidMount() {
-    document.body.style.backgroundColor = "black";
+    document.body.style.backgroundColor = "white";
   }
 
   render() {
