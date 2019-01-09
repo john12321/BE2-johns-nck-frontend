@@ -6,7 +6,7 @@ const Nav = ({ topics }) => {
   return (
     <div className="nav">
       {topics.map(({ slug }) =>
-        <Button key={slug}><Link to={`/topics/${slug}`}>{slug}</Link></Button>
+        <Button variant="outlined" key={slug}><Link to={`/topics/${slug}`} style={{ textDecoration: 'none' }}>{slug}</Link></Button>
       )}
     </div>
   );

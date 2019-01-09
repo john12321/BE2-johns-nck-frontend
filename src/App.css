@@ -14,35 +14,49 @@
 
 .header {
   grid-area: header;
-  border: 1px solid black;
-  background-color: lightblue;
+  /* border: 1px solid black; */
+  /* background-color: lightblue; */
 }
 
 .header-logo {
-  height : 30px;
-  width: 40px;
+  height : 60px;
+  width: 80px;
 }
 
 /* ---------------------nav component -----------------  */
 .nav {
   grid-area: nav;
-  border: 1px solid black;
-  background-color: rgb(178, 230, 173); 
+  /* border: 1px solid black; */
+  /* background-color: rgb(178, 230, 173);  */
 }
 
 
 /* ---------------------articles component -----------------  */
 .articles {
   grid-area: articles;
-  border: 1px solid black;
-  background-color: rgb(230, 199, 173);  
+  /* border: 1px solid black; */
+  /* background-color: rgb(85, 82, 80);   */
 }
+
+.cardContent{
+  padding: 5% 5% 5% 5%;
+  
+}
+
+/* ----------------article card component --------------- */
+
+.articleCard{
+  padding: 1% 1% 1% 1%;
+}
+
+
+
 
 /* ---------------------sidebar component -----------------  */
 .sidebar {
   grid-area: sidebar;
-  border: 1px solid black;
-  background-color: rgb(173, 228, 230);   
+  /* border: 1px solid black;
+  background-color: rgb(173, 228, 230);    */
 }
 
 /* ---------------------footer component -----------------  */

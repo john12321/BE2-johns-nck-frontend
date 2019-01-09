@@ -5,7 +5,7 @@ import { Button, Toolbar, AppBar, Typography } from '@material-ui/core';
 const Header = ({ user }) => {
   return (
     <div className="header">
-      <AppBar position="static" style={{ justifyContent: "space-between" }} >
+      <AppBar position="static" style={{ justifyContent: "space-between", background: 'transparent', boxShadow: 'none' }} >
         <Toolbar >
           {/* <MenuIcon ></MenuIcon> */}
           <img className="header-logo" src="https://northcoders.com/images/logos/learn_to_code_manchester_rw_original.png"
