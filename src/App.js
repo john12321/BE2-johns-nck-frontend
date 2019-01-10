@@ -20,10 +20,7 @@ class App extends Component {
     this.setState({
       user
     })
-  }
-
-  componentDidMount() {
-    this.fetchTopics();
+    localStorage.setItem("loginCredentials", JSON.stringify(user));
   }
 
   fetchTopics() {
@@ -35,6 +32,24 @@ class App extends Component {
         })
       })
   }
+
+  componentDidMount() {
+    this.fetchTopics();
+    this.getLocalUser();
+  }
+
+
+  getLocalUser = () => {
+    const storedUser = localStorage.getItem("loginCredentials");
+    if (storedUser) this.setState({ user: JSON.parse(storedUser) });
+  };
+
+
+  logoutLocalUser = () => {
+    localStorage.clear();
+    this.setState({ user: '' });
+  };
+
 
   render() {
     const { user, topics } = this.state;
