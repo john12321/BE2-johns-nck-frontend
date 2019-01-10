@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import * as api from '../api';
-import { Card, Button, CardHeader, CardContent, Typography, CardActionArea } from '@material-ui/core';
+import { Card, Button, CardContent, Typography } from '@material-ui/core';
 
 class TopicPost extends Component {
   state = {
@@ -20,22 +20,26 @@ class TopicPost extends Component {
   render() {
     const { topic, topicPosted } = this.state;
     return !topicPosted ? (
-      <Card>
-        <CardHeader>post a topic</CardHeader>
-        <CardActionArea>
-          <form onSubmit={this.handleSubmit}>
-            <label htmlFor='slug'>Slug:</label>
-            <input type='text' id='slug' required />
-            <label htmlFor='description'>Description:</label>
-            <input type='text' id='description' required />
-            <Button type='submit' variant="outlined" onSubmit={this.handleSubmit} >Post Topic</Button>
-          </form>
-        </CardActionArea>
-      </Card>
+      <>
+        <br />
+        <Card>
+          <section>post a new topic</section>
+          <CardContent>
+            <form onSubmit={this.handleSubmit}>
+              <label htmlFor='slug'>Slug:</label>
+              <input type='text' id='slug' required />
+              <label htmlFor='description'>Description:</label>
+              <input type='text' id='description' required />
+              <Button type='submit' variant="outlined" onSubmit={this.handleSubmit} >Post Topic</Button>
+            </form>
+          </CardContent>
+        </Card>
+      </>
     ) : (
         <>
+          <br />
           <Card>
-            <CardHeader>Topic Posted</CardHeader>
+            <section>Your topic has been posted!</section>
             <CardContent>
               <Typography>{topic.slug}</Typography>
               <Typography>{topic.description}</Typography>

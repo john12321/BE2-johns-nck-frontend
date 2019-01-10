@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import * as api from '../api';
-import { Card, Button, CardHeader, CardContent, Typography, CardActionArea } from '@material-ui/core';
+import { Card, Button, CardHeader, CardContent, Typography } from '@material-ui/core';
 
 class ArticlePost extends Component {
   state = {
@@ -25,8 +25,8 @@ class ArticlePost extends Component {
     const { articlePosted } = this.state;
     return (
       <Card>
-        <CardHeader>Post an Article</CardHeader>
-        <CardActionArea>
+        <section>Post an Article</section>
+        <CardContent>
           <form onSubmit={this.handleSubmit}>
             <label htmlFor='title'>Title:</label>
             <input type='text' id='title' required />
@@ -44,7 +44,7 @@ class ArticlePost extends Component {
             </select>
             <Button type='submit' variant="outlined" onSubmit={this.handleSubmit}>Post Article</Button>
           </form>
-        </CardActionArea>
+        </CardContent>
         {articlePosted && (
           <section>
             <h1>Posted!</h1>

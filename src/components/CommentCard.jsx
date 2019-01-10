@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Card, CardHeader, CardContent, Typography } from '@material-ui/core';
 import DeleteComment from './DeleteComment';
 import Vote from './Vote';
-import moment from 'moment';
+// import moment from 'moment';
 
 class CommentCard extends Component {
   render() {
@@ -18,13 +18,14 @@ class CommentCard extends Component {
               {comment.body}
             </Typography>
             <Typography>
-              created at: {moment(comment.created_at).format(
+              {/* created at: {moment(comment.created_at).format(
                 'dddd, MMMM Do YYYY, h:mm a',
-              )}
+              )} */}
+              {comment.created_at}
             </Typography>
           </CardContent>
           <DeleteComment user={user} article_id={article_id} comment={comment} />
-          <Vote articleId={article_id} votes={comment.votes} comment_id={comment.comment_id} />
+          <Vote article_id={article_id} votes={comment.votes} comment_id={comment.comment_id} />
         </Card>
         <br />
       </>

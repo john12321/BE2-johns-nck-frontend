@@ -63,7 +63,7 @@ class App extends Component {
             <Articles user={user} path="/topics/:topic" />
             <Article path="/:topic/:article_id" user={user} />
           </Router>
-          <SideBar user={user} />
+          <SideBar user={user} topics={topics} />
           <Footer />
         </Auth>
       </div>
