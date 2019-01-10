@@ -33,7 +33,7 @@ class Vote extends Component {
     return (
       <div>
         <Button disabled={voteChange === 1} type="submit" onClick={() => this.vote(1)}><ThumbUp></ThumbUp></Button>
-        {votes}
+        {votes + voteChange}
         <Button disabled={voteChange === -1} type="submit" onClick={() => this.vote(-1)}><ThumbDown></ThumbDown></Button>
       </div>
     );
