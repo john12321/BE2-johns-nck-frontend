@@ -14,18 +14,6 @@ class CommentsSideBar extends Component {
   }
 
 
-  fetchComments = () => {
-    api
-      .getComments(this.props.article_id)
-      .then(comments => {
-        this.setState({
-          latestComments: comments,
-          isLoading: false
-        });
-      })
-      .catch(err => { });
-  };
-
   addComment = (newComment, username) => {
     const postCommentObj = {
       body: newComment,
@@ -40,6 +28,19 @@ class CommentsSideBar extends Component {
     }));
   };
 
+  fetchComments = () => {
+    api
+      .getComments(this.props.article_id)
+      .then(comments => {
+        // console.log(comments)
+        this.setState({
+          latestComments: comments,
+          isLoading: false
+        });
+      })
+      .catch(err => { });
+  };
+
   render() {
 
     const { latestComments } = this.state;
@@ -47,10 +48,12 @@ class CommentsSideBar extends Component {
 
     return (
       <div>
-        <h3>Latest Comments</h3>
         <CommentPost user={user}
           addComment={this.addComment}
           article_id={article_id} />
+        <br />
+        <h3>Latest Comments</h3>
+
         {latestComments.map(comment => {
           return (
             <div key={comment.comment_id}>

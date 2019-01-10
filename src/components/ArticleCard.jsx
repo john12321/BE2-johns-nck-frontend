@@ -42,7 +42,7 @@ class ArticleCard extends Component {
             </Typography>
           </CardContent>
           <DeleteArticle user={user} article={article} />
-          <Vote articleId={article_id} votes={votes} voteType="article" />
+          <Vote article_id={article_id} votes={votes} />
         </Card>
         <br />
       </>

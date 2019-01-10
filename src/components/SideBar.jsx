@@ -7,6 +7,7 @@ const SideBar = ({ user }) => {
     <>
       <Router>
         <CommentsSideBar path="/:topic/:article_id" user={user} />
+        {/* <CommentsSideBar path="/" user={user} /> */}
       </Router>
     </>
   );

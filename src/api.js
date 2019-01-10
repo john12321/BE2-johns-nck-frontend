@@ -43,6 +43,7 @@ export const postComment = async (article_id, body, user_id) => {
     `${BASE_URL}/articles/${article_id}/comments`,
     { user_id, body }
   );
+  console.log(data)
   return data.comment;
 };
 
@@ -61,4 +62,12 @@ export const postArticle = async (topic, newArticle) => {
     newArticle,
   );
   return data.article;
+};
+
+export const deleteItem = async (article_id, comment_id) => {
+  const URL = comment_id
+    ? `${BASE_URL}/articles/${article_id}/comments/${comment_id}`
+    : `${BASE_URL}/articles/${article_id}`;
+  await axios.delete(URL);
+
 };

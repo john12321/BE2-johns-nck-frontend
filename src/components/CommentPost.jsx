@@ -14,12 +14,13 @@ class CommentPost extends Component {
     event.preventDefault();
     const {
       article_id,
-      user
+      user: { user_id, username }
     } = this.props;
-    api.postComment(article_id, this.state.comment, user.user_id).catch(err => {
+    api.postComment(article_id, this.state.comment, user_id).catch(err => {
       //need error-catcher for failed post
     });
-    this.props.addComment(this.state.comment, user.username);
+    this.props.addComment(this.state.comment, username);
+    this.setState(() => ({ comment: '' }));
   };
 
   render() {
