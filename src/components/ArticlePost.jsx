@@ -31,20 +31,26 @@ class ArticlePost extends Component {
         <section>Post an Article</section>
         <CardContent>
           <form onSubmit={this.handleSubmit}>
-            <label htmlFor='title'>Title:</label>
-            <input type='text' id='title' required />
-            <label htmlFor='body'>Body:</label>
-            <input type='text' id='body' required />
-            <label htmlFor='topic'>Topic:</label>
-            <select id='topic'>
-              {topics.map(topic => {
-                return (
-                  <option key={topic.slug} value={topic.slug}>
-                    {topic.slug}
-                  </option>
-                );
-              })}
-            </select>
+            <div>
+              <label htmlFor='title'>Title:</label>
+              <input type='text' id='title' required />
+            </div>
+            <div>
+              <label htmlFor='body'>Body:</label>
+              <input type='text' id='body' required />
+            </div>
+            <div>
+              <label htmlFor='topic'>Topic:</label>
+              <select id='topic'>
+                {topics.map(topic => {
+                  return (
+                    <option key={topic.slug} value={topic.slug}>
+                      {topic.slug}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
             <Button type='submit' variant="outlined" onSubmit={this.handleSubmit}>Post Article</Button>
           </form>
         </CardContent>

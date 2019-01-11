@@ -29,10 +29,14 @@ class TopicPost extends Component {
           <section>post a new topic</section>
           <CardContent>
             <form onSubmit={this.handleSubmit}>
-              <label htmlFor='slug'>Topic:</label>
-              <input type='text' id='slug' required />
-              <label htmlFor='description'>Description:</label>
-              <input type='text' id='description' required />
+              <div>
+                <label htmlFor='slug'>Topic:</label>
+                <input type='text' id='slug' required />
+              </div>
+              <div>
+                <label htmlFor='description'>Description:</label>
+                <input type='text' id='description' required />
+              </div>
               <Button type='submit' variant="outlined" onSubmit={this.handleSubmit} >Post Topic</Button>
             </form>
           </CardContent>
