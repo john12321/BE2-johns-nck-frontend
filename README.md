@@ -1,9 +1,9 @@
 # john's nck frontend
 
-# Northcoder News
+## Northcoder News
 For some of your northcoders news needs (please read the disclaimer)
 
-## the link to the site is: 
+## the link to the site is: (https://johns-ncknews.herokuapp.com)
 
 The default log-in value is 'jessjelly' 
 
