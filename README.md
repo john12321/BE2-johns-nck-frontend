@@ -1,3 +1,34 @@
+# john's nck frontend
+
+# Northcoder News
+For some of your northcoders news needs (please read the disclaimer)
+
+## the link to the site is: 
+
+The default log-in value is 'jessjelly' 
+
+## the link to my backend api is: (https://johns-ncknews.herokuapp.com/api)
+
+## User actions
+
+As a user of this site, at the moment you can:
+
+- Read articles
+- Read article comments
+ - Vote on each article
+- Submit your own article
+- Delete your own article
+- Delete yor own comments
+- Vote on each comment
+- Comment for each article
+- Submit a new topic 
+
+## How to use this Front-End
+
+(needs text)
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
