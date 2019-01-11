@@ -10,7 +10,7 @@ class ArticleSideBar extends Component {
     const { user, topics } = this.props;
     return (
       <div>
-        <section>Post a new article here</section>
+        <br />
         <ArticlePost user={user} topics={topics} />
       </div>
     );

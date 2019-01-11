@@ -13,7 +13,7 @@ class DeleteArticle extends Component {
     const { article } = this.props
     this.setState({ deletedArticle: article.topic })
     api.deleteItem(article.article_id).then(() => {
-      console.log('deleted');
+      alert('This article has been deleted');
     })
 
   }

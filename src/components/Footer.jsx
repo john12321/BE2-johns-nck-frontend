@@ -1,9 +1,11 @@
 import React from 'react';
+import Filters from './Filters';
 
 const Footer = () => {
   return (
     <div className="footer">
-      <span>footer</span>
+      {/* todo - sticky footer */}
+      <Filters />
     </div>
   );
 };

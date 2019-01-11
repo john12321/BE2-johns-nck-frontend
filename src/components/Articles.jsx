@@ -26,6 +26,7 @@ class Articles extends Component {
     api
       .getArticles(topic)
       .then(articles => {
+        // console.log(articles);
         this.setState({
           articles
         });

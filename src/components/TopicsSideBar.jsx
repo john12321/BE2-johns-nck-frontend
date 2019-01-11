@@ -6,9 +6,10 @@ class TopicsSideBar extends Component {
 
   }
   render() {
+    const { user, topics, fetchTopics } = this.props
     return (
       <div>
-        <TopicPost />
+        <TopicPost user={user} topics={topics} fetchTopics={fetchTopics} />
       </div>
     );
   }

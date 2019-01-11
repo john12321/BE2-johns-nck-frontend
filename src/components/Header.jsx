@@ -3,7 +3,7 @@ import { Button, Toolbar, AppBar, Typography } from '@material-ui/core';
 // import MenuIcon from '@material-ui/icons/Menu';
 import { Link } from '@reach/router';
 
-const Header = ({ user }) => {
+const Header = ({ user, logoutLocalUser }) => {
   return (
     <div className="header">
       <AppBar position="static" style={{ justifyContent: "space-between", background: 'transparent', boxShadow: 'none' }} >
@@ -14,10 +14,10 @@ const Header = ({ user }) => {
               alt="Northcoders logo"></img>
           </Link>
           <Typography type="title" color="default" style={{ flex: 1 }}>
-            {`Welcome back ${user.username}`}
+            {`Welcome, ${user.username}`}
           </Typography>
           <div>
-            <Button variant="outlined" color="secondary">
+            <Button type="submit" onClick={logoutLocalUser} variant="outlined" color="secondary">
               Log out
             </Button>
           </div>

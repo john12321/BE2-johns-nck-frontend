@@ -9,6 +9,8 @@ import Footer from './components/Footer';
 import Auth from './components/Auth';
 import { Router } from '@reach/router';
 import * as api from './api';
+import Errors from './components/Errors';
+import { navigate } from '@reach/router/lib/history';
 
 class App extends Component {
   state = {
@@ -23,7 +25,7 @@ class App extends Component {
     localStorage.setItem("loginCredentials", JSON.stringify(user));
   }
 
-  fetchTopics() {
+  fetchTopics = () => {
     api
       .getTopics()
       .then(topics => {
@@ -48,6 +50,7 @@ class App extends Component {
   logoutLocalUser = () => {
     localStorage.clear();
     this.setState({ user: '' });
+    navigate('/')
   };
 
 
@@ -56,14 +59,15 @@ class App extends Component {
     return (
       <div className="App">
         <Auth user={user} login={this.login}>
-          <Header user={user} />
+          <Header user={user} logoutLocalUser={this.logoutLocalUser} />
           <Nav topics={topics} />
           <Router className="articles">
             <Articles user={user} path="/" />
             <Articles user={user} path="/topics/:topic" />
             <Article path="/:topic/:article_id" user={user} />
+            <Errors default />
           </Router>
-          <SideBar user={user} topics={topics} />
+          <SideBar user={user} topics={topics} fetchTopics={this.fetchTopics} />
           <Footer />
         </Auth>
       </div>

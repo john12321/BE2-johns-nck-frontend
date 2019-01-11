@@ -8,13 +8,16 @@ class TopicPost extends Component {
     topicPosted: false,
   };
 
+
   handleSubmit = event => {
     event.preventDefault();
     const slug = event.target.slug.value;
     const description = event.target.description.value;
-    api.postTopic(slug, description).then(topic => {
-      this.setState(() => ({ topic, topicPosted: true }));
-    });
+    api.postTopic(slug, description)
+      .then(topic => {
+        this.setState(() => ({ topic, topicPosted: true }));
+        this.props.fetchTopics();
+      });
   };
 
   render() {
@@ -26,7 +29,7 @@ class TopicPost extends Component {
           <section>post a new topic</section>
           <CardContent>
             <form onSubmit={this.handleSubmit}>
-              <label htmlFor='slug'>Slug:</label>
+              <label htmlFor='slug'>Topic:</label>
               <input type='text' id='slug' required />
               <label htmlFor='description'>Description:</label>
               <input type='text' id='description' required />

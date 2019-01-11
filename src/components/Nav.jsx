@@ -5,6 +5,7 @@ import { Link } from '@reach/router';
 const Nav = ({ topics }) => {
   return (
     <div className="nav">
+      <span>Topics</span>{' '}
       {topics.map(({ slug }) =>
         <Button variant="outlined" key={slug}><Link to={`/topics/${slug}`} style={{ textDecoration: 'none' }}>{slug}</Link></Button>
       )}

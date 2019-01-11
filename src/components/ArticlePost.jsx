@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import * as api from '../api';
-import { Card, Button, CardHeader, CardContent, Typography } from '@material-ui/core';
+import { Card, Button, CardContent } from '@material-ui/core';
+import { navigate } from '@reach/router';
 
 class ArticlePost extends Component {
   state = {
@@ -15,8 +16,10 @@ class ArticlePost extends Component {
     const user_id = this.props.user.user_id;
     const topic = event.target.topic.value;
     api.postArticle(topic, { title, body, user_id }).then(article => {
+      console.log(article)
       this.setState(() => ({ articlePosted: true }));
-    });
+      navigate(`/${article.topic}/${article.article_id}`);
+    })
   };
 
 
