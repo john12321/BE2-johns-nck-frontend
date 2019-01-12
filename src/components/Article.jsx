@@ -48,11 +48,11 @@ class Article extends Component {
     } else {
       return (
         <Card className="singleArticleCard" >
-          <CardHeader subheader={title}>
+          <CardHeader subheader={author}>
           </CardHeader>
           <CardContent>
             <Typography variant="headline">
-              {author}
+              {title}
             </Typography>
             <p>{body}</p>
             <span>Creation date:{moment(created_at).format(

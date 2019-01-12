@@ -12,6 +12,7 @@ import * as api from './api';
 import Errors from './components/Errors';
 import { navigate } from '@reach/router/lib/history';
 
+
 class App extends Component {
   state = {
     user: '',
@@ -30,9 +31,15 @@ class App extends Component {
       .getTopics()
       .then(topics => {
         this.setState({
-          topics: topics
+          topics
         })
       })
+  }
+
+  addNewTopic = (topic) => {
+    this.setState((state) => {
+      return { topics: [...state.topics, topic] }
+    })
   }
 
   componentDidMount() {
@@ -61,13 +68,16 @@ class App extends Component {
         <Auth user={user} login={this.login}>
           <Header user={user} logoutLocalUser={this.logoutLocalUser} />
           <Nav topics={topics} />
+
           <Router className="articles">
             <Articles user={user} path="/" />
             <Articles user={user} path="/topics/:topic" />
+            <Articles user={user} path="topic/add" />
+            <Articles user={user} path="article/add" />
             <Article path="/:topic/:article_id" user={user} />
             <Errors default />
           </Router>
-          <SideBar user={user} topics={topics} fetchTopics={this.fetchTopics} />
+          <SideBar user={user} topics={topics} fetchTopics={this.fetchTopics} addNewTopic={this.addNewTopic} />
           <Footer />
         </Auth>
       </div>

@@ -1,33 +1,50 @@
-# john's nck frontend
+# John's Northcoders knews
+For some of your northcoders news needs!
 
-## Northcoder News
-For some of your northcoders news needs (please read the disclaimer)
+## Front-end
 
-## the link to the site is: (https://johns-ncknews.herokuapp.com)
+### Hosted on Netlify at https://johns-ncknews.netlify.com (default login for testing: 'jessjelly')
 
-The default log-in value is 'jessjelly' 
+Front-end tech I used to build this site includes:
+1. React (webpack)
+2. Reach Router
+3. Axios
 
-## the link to my backend api is: (https://johns-ncknews.herokuapp.com/api)
+## Connection to the Back-end API
 
-## User actions
+Axios is used to connect to my back-end API on the Node server which in turn uses Knex to communicate with an SQL database. 
 
-As a user of this site, at the moment you can:
+### The link to my API is: https://johns-ncknews.herokuapp.com/api
 
-- Read articles
+
+
+## Front-end client actions
+
+Users logged into this site can:
+
+- Read articles (and filter articles useing various sort-by queries)
 - Read article comments
- - Vote on each article
+- Vote on each article
 - Submit your own article
 - Delete your own article
+- Comment for each article
 - Delete yor own comments
 - Vote on each comment
-- Comment for each article
-- Submit a new topic 
+- Submit a new news topic 
 
-## How to use this Front-End
+## How to use this Frontend
 
-(needs text)
+1. Clone the following repo: https://github.com/john12321/johns-nck-frontend.git
+
+2. Navigate to folder named: johns-nck-frontend 
+
+3. npm install to install dependencies
+
+4. npm start will then bring up the localhost site 
 
 
+
+# Further information on this front-end project
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 

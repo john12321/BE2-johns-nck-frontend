@@ -1,7 +1,7 @@
 .App {
   text-align: center;
   display: grid;
-  grid-template: 0.5fr 0.5fr 5fr 0.5fr / 3fr 1fr;
+  grid-template: 0.5fr 0.9fr 5fr 0.5fr / 3fr 1fr;
   grid-template-areas: 
   "header header"
   "nav nav"
@@ -14,8 +14,8 @@
 
 .header {
   grid-area: header;
-  /* border: 1px solid black; */
-  /* background-color: lightblue; */
+  background-color: rgb(112, 170, 206);
+  
 }
 
 .header-logo {
@@ -23,24 +23,32 @@
   width: 80px;
 }
 
+.addBtn {
+  padding: 2px;
+}
+
 /* ---------------------nav component -----------------  */
 .nav {
   grid-area: nav;
-  /* border: 1px solid black; */
-  /* background-color: rgb(178, 230, 173);  */
+  overflow-x: scroll; 
+  padding: 1% 1% 1% 1%;
 }
+
 
 
 /* ---------------------articles component -----------------  */
 .articles {
   grid-area: articles;
-  /* border: 1px solid black; */
-  /* background-color: rgb(85, 82, 80);   */
+  overflow-y: scroll;
 }
 
+::-webkit-scrollbar {
+  display:none;
+}
+
+
 .cardContent{
-  padding: 5% 5% 5% 5%;
-  
+  padding: 5% 5% 5% 5%;  
 }
 
 /* ----------------article card component --------------- */
@@ -50,14 +58,15 @@
 }
 
 
-
-
 /* ---------------------sidebar component -----------------  */
 .sidebar {
   grid-area: sidebar;
-  /* border: 1px solid black;
-  background-color: rgb(173, 228, 230);    */
+  padding: 1% 1% 1% 1%;
+
 }
+
+
+/* ------------------topicPost component ------------------- */
 
 
 /*--------- comments sidebar component -------------------*/
@@ -66,6 +75,5 @@
 /* ---------------------footer component -----------------  */
 .footer {
   grid-area: footer;
-  border: 1px solid black;
-  background-color: rgb(179, 173, 230);   
+  background-color: rgb(112, 170, 206);
 }

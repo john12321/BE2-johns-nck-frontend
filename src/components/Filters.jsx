@@ -3,9 +3,20 @@ import { Card, Button } from '@material-ui/core';
 
 class Filters extends Component {
   state = {
-    sort_ascending: false,
-    sort_by: true
+    sort_ascending: true,
+    sort_by: "created_at"
   }
+
+  handleChange = (event) => {
+    const { value } = event.target
+    this.setState({
+      sort_by: value
+    }, () => console.log(this.state))
+  }
+
+  // componentDidUpdate(){
+  //   this.fetchArticles(value);
+  // }
 
 
   render() {
@@ -13,12 +24,11 @@ class Filters extends Component {
       <div>
         <Card>
           <form>
-            <label htmlFor="sortBy">sort by</label>
+            <label htmlFor="sort_by">sort by</label>
             <select id="sort_by" onChange={this.handleChange}>
               <option value="title">Title</option>
               <option value="author">Author</option>
-              <option
-                value="created_at">Date</option>
+              <option value="created_at">Date</option>
               <option value="votes">Votes</option>
               <option value="comments">Comments</option>
             </select>
@@ -35,9 +45,15 @@ class Filters extends Component {
   };
 }
 
-
-
-
-
-
 export default Filters;
+
+
+
+
+
+
+
+
+
+
+

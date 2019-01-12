@@ -26,7 +26,6 @@ class Articles extends Component {
     api
       .getArticles(topic)
       .then(articles => {
-        // console.log(articles);
         this.setState({
           articles
         });
@@ -44,7 +43,7 @@ class Articles extends Component {
               <div
                 key={article.article_id}
               >
-                <ArticleCard article={article} user={this.props.user} />
+                <ArticleCard class="test" article={article} user={this.props.user} />
               </div>
             )
           })}

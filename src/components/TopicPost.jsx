@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import * as api from '../api';
 import { Card, Button, CardContent, Typography } from '@material-ui/core';
+import { navigate } from '@reach/router';
 
 class TopicPost extends Component {
   state = {
     topic: {},
-    topicPosted: false,
+    // topicPosted: false,
+    err: false
   };
 
 
@@ -15,8 +17,13 @@ class TopicPost extends Component {
     const description = event.target.description.value;
     api.postTopic(slug, description)
       .then(topic => {
+        console.log(topic)
         this.setState(() => ({ topic, topicPosted: true }));
-        this.props.fetchTopics();
+        // this.props.fetchTopics();
+        navigate(`/topics/${topic.slug}`)
+          .catch(() => {
+            this.setState({ err: true })
+          })
       });
   };
 
@@ -24,7 +31,6 @@ class TopicPost extends Component {
     const { topic, topicPosted } = this.state;
     return !topicPosted ? (
       <>
-        <br />
         <Card>
           <section>post a new topic</section>
           <CardContent>
