@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Card, CardHeader, CardContent, Typography } from '@material-ui/core';
 import { Link } from '@reach/router';
-import DeleteArticle from './DeleteArticle';
 import Vote from './Vote';
 
 class ArticleCard extends Component {
@@ -41,7 +40,6 @@ class ArticleCard extends Component {
               created at: {formattedDate}
             </Typography>
           </CardContent>
-          <DeleteArticle user={user} article={article} />
           <Vote article_id={article_id} votes={votes} />
         </Card>
         <br />

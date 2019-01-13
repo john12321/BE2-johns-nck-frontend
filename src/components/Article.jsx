@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import * as api from "../api";
-import DeleteArticle from './DeleteArticle';
+import { navigate } from '@reach/router';
 import Vote from "./Vote";
-import { Card, CardHeader, CardContent, Typography } from '@material-ui/core';
+import { Card, CardHeader, CardContent, Typography, Button } from '@material-ui/core';
 import moment from 'moment';
+import DeleteIcon from '@material-ui/icons/Delete';
+
+
 
 
 class Article extends Component {
@@ -24,6 +27,15 @@ class Article extends Component {
       })
   }
 
+  removeItem = () => {
+    api
+      .deleteItem(this.props.article_id)
+      .then(() => {
+        navigate('/')
+      });
+  }
+
+
   render() {
 
     const {
@@ -39,7 +51,6 @@ class Article extends Component {
       isLoading
     } = this.state;
     const { user } = this.props;
-
 
     if (isLoading) {
       return (
@@ -63,8 +74,10 @@ class Article extends Component {
           </CardContent>
           <br />
           {user.username === author && (
-            <DeleteArticle user={user} article_id={article_id} author={author} />
-          )}
+            <Button size="small" type="submit" onClick={this.removeItem} variant="contained" color="secondary" >
+              Delete
+        <DeleteIcon />
+            </Button>)}
           <br />
           <Vote votes={votes} article_id={article_id} />
           <br />
