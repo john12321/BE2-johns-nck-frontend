@@ -1,6 +1,6 @@
 import React from 'react';
 import { Router } from "@reach/router";
-// import CommentsSideBar from "./CommentsSideBar";
+import CommentsSideBar from "./CommentsSideBar";
 import ArticlePost from './ArticlePost';
 import TopicPost from './TopicPost';
 

@@ -70,10 +70,10 @@ class App extends Component {
           <Nav topics={topics} />
 
           <Router className="articles">
-            <Articles user={user} path="/" />
-            <Articles user={user} path="/topics/:topic" />
-            <Articles user={user} path="topic/add" />
-            <Articles user={user} path="article/add" />
+            <Articles user={user} path="/" topics={topics} />
+            <Articles user={user} path="/topics/:topic" topics={topics} />
+            <Articles user={user} path="topic/add" topics={topics} />
+            <Articles user={user} path="article/add" topics={topics} />
             <Article path="/:topic/:article_id" user={user} />
             <Errors default />
           </Router>

@@ -7,7 +7,9 @@ class Articles extends Component {
 
   state = {
     articles: [],
-    isLoading: true
+    isLoading: true,
+    page: 1,
+    err: false
   }
 
   componentDidMount() {
@@ -22,17 +24,22 @@ class Articles extends Component {
     }
   }
 
-  fetchArticles(topic) {
+  fetchArticles() {
+    const { topic } = this.props;
+    const { page } = this.state;
     api
-      .getArticles(topic)
+      .getArticles(topic, page)
       .then(articles => {
         this.setState({
           articles
         });
       })
+      .catch((err) => {
+        this.setState({ err: true, articles: [] })
+        // console.log(this.state)
+      })
   }
-  render(props) {
-    // console.log(this.props)
+  render() {
     const { articles } = this.state
     let cardContent = null;
     if (!this.state.isLoading) {
