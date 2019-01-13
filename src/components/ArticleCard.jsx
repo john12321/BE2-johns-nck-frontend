@@ -7,7 +7,7 @@ class ArticleCard extends Component {
 
 
   render(props) {
-    const { article, user } = this.props;
+    const { article } = this.props;
     const {
       article_id,
       author,
@@ -33,9 +33,6 @@ class ArticleCard extends Component {
             <Typography variant="headline">
               {topic}
             </Typography>
-            {/* <Typography variant="overline">
-              {body}
-            </Typography> */}
             <Typography>
               created at: {formattedDate}
             </Typography>

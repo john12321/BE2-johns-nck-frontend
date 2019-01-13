@@ -31,9 +31,9 @@ export const getArticle = async (article_id) => {
   return data.article;
 }
 
-export const getComments = async (article_id) => {
+export const getComments = async (article_id, page) => {
   const { data } = await axios.get(
-    `${BASE_URL}/articles/${article_id}/comments`
+    `${BASE_URL}/articles/${article_id}/comments?page=${page}`
   );
   return data.comments;
 };

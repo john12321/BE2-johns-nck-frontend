@@ -53,7 +53,7 @@ class Articles extends Component {
   }
 
   handleScroll = () => {
-    console.log(window.scrollY)
+    // console.log(window.scrollY)
     const scrolledHeight = window.scrollY;
     const bottom = document.body.scrollHeight - 100;
     if (scrolledHeight >= bottom) {
