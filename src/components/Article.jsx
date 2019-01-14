@@ -20,6 +20,16 @@ class Article extends Component {
   componentDidMount() {
     this.fetchArticle();
     this.fetchComments();
+    window.addEventListener('scroll', this.throttledScroll)
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { article_id } = this.props;
+    if (article_id !== prevProps.article_id) {
+      this.fetchArticle()
+      this.setState({ page: 1, comments: [] }, this.fetchComments)
+      window.addEventListener('scroll', this.throttledScroll)
+    }
   }
 
   fetchArticle = () => {
@@ -67,6 +77,17 @@ class Article extends Component {
     })
   }
 
+  handleScroll = () => {
+    const scrolledHeight = window.innerHeight + window.scrollY
+    const bottom = document.body.scrollHeight - 100
+    if (scrolledHeight >= bottom) {
+      this.setState((state) => {
+        return { page: state.page + 1 }
+      }, this.fetchComments)
+    }
+  }
+
+  throttledScroll = throttle(this.handleScroll, 2000)
 
   render() {
 
@@ -80,7 +101,7 @@ class Article extends Component {
         comment_count,
         article_id
       },
-      isLoading, comments, page
+      isLoading, comments
     } = this.state;
     const { user } = this.props;
 
@@ -154,6 +175,8 @@ class Article extends Component {
     }
 
   }
+
+
 }
 
 export default Article;
