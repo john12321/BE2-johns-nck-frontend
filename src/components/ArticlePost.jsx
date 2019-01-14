@@ -16,7 +16,6 @@ class ArticlePost extends Component {
     const user_id = this.props.user.user_id;
     const topic = event.target.topic.value;
     api.postArticle(topic, { title, body, user_id }).then(article => {
-      console.log(article)
       this.setState(() => ({ articlePosted: true }));
       navigate(`/${article.topic}/${article.article_id}`);
     })
@@ -27,7 +26,7 @@ class ArticlePost extends Component {
     const { topics } = this.props;
     const { articlePosted } = this.state;
     return (
-      <Card>
+      <Card className="post-form">
         <section>Post an Article</section>
         <CardContent>
           <form onSubmit={this.handleSubmit}>

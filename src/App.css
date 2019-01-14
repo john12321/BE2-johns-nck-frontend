@@ -1,14 +1,51 @@
+:root {
+  --primary: white;
+  --font: #62008B;
+}
+
+
 .App {
   text-align: center;
   display: grid;
-  grid-template: 0.5fr 0.9fr 5fr 0.5fr / 3fr 1fr;
+  grid-template: 0.5fr 0.9fr 5fr / 3fr 1fr;
   grid-template-areas: 
   "header header"
   "nav nav"
-  "articles sidebar"
-  "footer footer";
+  "articles sidebar";
+  /* "footer footer"; */
   height: 100vh;
 }
+
+@media (max-width: 700px)  {
+  .App {
+    grid-template: 0.5fr 0.7fr 2fr 5fr/ 1fr;
+      grid-template-areas:
+  "header"
+  "nav"
+  "sidebar"
+  "articles";
+  /* "footer"; */
+  height: 100vh;
+  }
+  }
+
+
+
+  /*-------------------------- login screen --------------------*/
+  .login-screen {
+    display: grid;
+    justify-content: center;
+    text-align: center;
+    align-content: center;
+    align-content: center;
+  }
+
+  .login-card {
+    display: flex;
+    padding: 1% 1% 1% 1%;
+  }
+
+
 
 /* ---------------------header component -----------------  */
 
@@ -16,6 +53,10 @@
   grid-area: header;
   background-color: rgb(112, 170, 206);
   
+}
+
+.header-name {
+  font: var(--font);
 }
 
 .header-logo {
@@ -34,12 +75,16 @@
   padding: 1% 1% 1% 1%;
 }
 
+.navButton {
+  font: var(--font);
+}
+
 
 
 /* ---------------------articles component -----------------  */
 .articles {
   grid-area: articles;
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
 }
 
 ::-webkit-scrollbar {
@@ -57,6 +102,13 @@
   padding: 1% 1% 1% 1%;
 }
 
+/* article & topic post form ----------------*/
+.post-form{
+  display: flex;
+  flex-direction: column;
+  justify-content: right;
+  align-items: center;
+}
 
 /* ---------------------sidebar component -----------------  */
 .sidebar {

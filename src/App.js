@@ -5,7 +5,7 @@ import Nav from './components/Nav';
 import Articles from './components/Articles';
 import Article from './components/Article';
 import SideBar from './components/SideBar';
-import Footer from './components/Footer';
+// import Footer from './components/Footer';
 import Auth from './components/Auth';
 import { Router } from '@reach/router';
 import * as api from './api';
@@ -71,15 +71,15 @@ class App extends Component {
           <Nav topics={topics} />
 
           <Router className="articles">
-            <Articles user={user} path="/" topics={topics} />
-            <Articles user={user} path="/topics/:topic" topics={topics} />
+            <Articles path="/" topics={topics} />
+            <Articles path="/topics/:topic" topics={topics} />
             <Articles user={user} path="topic/add" topics={topics} />
             <Articles user={user} path="article/add" topics={topics} />
-            <Article path="/:topic/:article_id" user={user} removeItem={this.removeItem} />
+            <Article path="/:topic/:article_id" topics={topics} user={user} removeItem={this.removeItem} />
             <Errors default />
           </Router>
           <SideBar user={user} topics={topics} fetchTopics={this.fetchTopics} addNewTopic={this.addNewTopic} />
-          <Footer />
+          {/* <Footer /> */}
         </Auth>
       </div>
     );

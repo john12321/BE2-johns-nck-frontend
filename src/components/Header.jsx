@@ -19,7 +19,7 @@ const Header = ({ user, logoutLocalUser }) => {
           <Button >
             <Link to='/article/add' className="addBtn" style={{ textDecoration: 'none' }}>New Article</Link>
           </Button>
-          <Typography type="title" color="default" style={{ flex: 1, fontSize: 20 }}>
+          <Typography className="header-name" type="title" color="default" style={{ flex: 1, fontSize: 20 }}>
             {`Welcome, ${user.username}`}
           </Typography>
           <Avatar alt={user.name} src={user.avatar_url} />

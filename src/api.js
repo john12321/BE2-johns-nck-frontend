@@ -1,6 +1,8 @@
 import axios from 'axios';
 
+// const BASE_URL = "https://nc-knews-example-fixed.herokuapp.com/api";
 const BASE_URL = "https://johns-ncknews.herokuapp.com/api";
+
 
 export const getUser = async (username) => {
   const { data } = await axios.get(`${BASE_URL}/users/${username}`);
@@ -21,8 +23,9 @@ export const postTopic = async (slug, description) => {
 };
 
 export const getArticles = async (topic, page, sort_by) => {
-  const URL = topic ? `${BASE_URL}/topics/${topic}/articles?p=${page}` : `${BASE_URL}/articles?p=${page}?sort_by=${sort_by}`;
+  const URL = topic ? `${BASE_URL}/topics/${topic}/articles?p=${page}&sort_by=${sort_by}` : `${BASE_URL}/articles?p=${page}&sort_by=${sort_by}`;
   const { data } = await axios.get(URL);
+  // console.log(page)
   return data.articles;
 }
 
@@ -33,7 +36,7 @@ export const getArticle = async (article_id) => {
 
 export const getComments = async (article_id, page) => {
   const { data } = await axios.get(
-    `${BASE_URL}/articles/${article_id}/comments?page=${page}`
+    `${BASE_URL}/articles/${article_id}/comments?p=${page}`
   );
   return data.comments;
 };

@@ -39,8 +39,8 @@ class LoginForm extends Component {
   render() {
     const { username, error } = this.state;
     return (
-      <div>
-        <Card id="login-card" >
+      <div className="login-screen">
+        <Card className="login-card" >
           <CardHeader avatar={
             <Avatar aria-label="Northcoders" >
               NCK

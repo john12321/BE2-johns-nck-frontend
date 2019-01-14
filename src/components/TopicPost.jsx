@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import * as api from '../api';
-import { Card, Button, CardContent, Typography } from '@material-ui/core';
+import { Card, Button, CardContent } from '@material-ui/core';
 import { navigate } from '@reach/router';
 
 class TopicPost extends Component {
@@ -28,10 +28,10 @@ class TopicPost extends Component {
   };
 
   render() {
-    const { topic, topicPosted } = this.state;
+    const { topicPosted } = this.state;
     return !topicPosted ? (
       <>
-        <Card>
+        <Card className="post-form">
           <section>post a new topic</section>
           <CardContent>
             <form onSubmit={this.handleSubmit}>
@@ -50,14 +50,14 @@ class TopicPost extends Component {
       </>
     ) : (
         <>
-          <br />
+          {/* <br />
           <Card>
             <section>Your topic has been posted!</section>
             <CardContent>
               <Typography>{topic.slug}</Typography>
               <Typography>{topic.description}</Typography>
             </CardContent>
-          </Card>
+          </Card> */}
         </>
       );
   }

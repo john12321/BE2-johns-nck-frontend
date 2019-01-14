@@ -5,6 +5,8 @@ class CommentPost extends Component {
     comment: ''
   }
 
+
+
   handleChange = event => {
     const { id, value } = event.target;
     this.setState({ [id]: value });
@@ -13,7 +15,8 @@ class CommentPost extends Component {
   addComment = (event) => {
     event.preventDefault()
     const { comment } = this.state
-    this.props.addComment(comment)
+    const { user } = this.props
+    this.props.addComment(user.user_id, comment)
     this.setState({
       comment: ''
     })

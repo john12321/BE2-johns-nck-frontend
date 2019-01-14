@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import * as api from '../api';
 import ArticleCard from './ArticleCard';
-import { Button } from '@material-ui/core';
+import { Button, FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
 import { Link } from '@reach/router';
 import throttle from 'lodash.throttle';
 
@@ -10,9 +10,11 @@ class Articles extends Component {
 
   state = {
     articles: [],
-    // isLoading: true,
+    isLoading: true,
     page: 1,
-    err: false
+    err: false,
+    currentQuery: "",
+    atEnd: false
   }
 
   componentDidMount() {
@@ -24,7 +26,9 @@ class Articles extends Component {
     const { topic } = this.props;
     if (topic !== prevProps.topic) {
       this.fetchArticles(topic);
-      window.addEventListener('scroll', this.throttleScroll)
+    }
+    if (this.state.page !== prevState.page) {
+      this.fetchArticles(topic);
     }
   }
 
@@ -34,15 +38,22 @@ class Articles extends Component {
 
   fetchArticles() {
     const { topic } = this.props;
-    const { page } = this.state;
+    const { page, currentQuery } = this.state;
     api
-      .getArticles(topic, page)
+      .getArticles(topic, page, currentQuery)
       .then(articles => {
-        this.setState({
-          articles
+        this.setState(prevState => {
+          if (page === 1) {
+            return { articles, isLoading: false };
+          } else {
+            return {
+              articles: [...prevState.articles, ...articles],
+              isLoading: false
+            };
+          }
         });
         if (articles.length < 10) {
-          window.removeEventListener('scroll', this.throttleScroll);
+          this.setState({ atEnd: true })
         }
       })
       .catch(() => {
@@ -53,17 +64,26 @@ class Articles extends Component {
   }
 
   handleScroll = () => {
-    // console.log(window.scrollY)
-    const scrolledHeight = window.scrollY;
-    const bottom = document.body.scrollHeight - 100;
+    console.log('scrolling', window.scrollY)
+    const scrolledHeight = window.scrollY + window.innerHeight;
+    const bottom = document.body.scrollHeight - 200;
     if (scrolledHeight >= bottom) {
       this.setState((state) => {
         return { page: state.page + 1 }
-      }, this.fetchArticles)
+      })
     }
+    // // test code below--------------------------------
+    // else {
+    //   console.log('not firing');
+    // }
   };
 
   throttleScroll = throttle(this.handleScroll, 1500);
+
+
+  updatecurrentQuery = (sort_by) => {
+    this.state({ currentQuery: { sort_by } });
+  }
 
 
   render() {
@@ -89,19 +109,48 @@ class Articles extends Component {
               <div
                 key={article.article_id}
               >
-                <ArticleCard class="test" article={article} user={this.props.user} />
+                <ArticleCard class="test" article={article} user={this.props.user} fetchArticles={this.fetchArticles} />
               </div>
             )
           })}
         </div>
       )
       return (
-        <div>
-          {cardContent}
-        </div>
+        <>
+          <section >
+            <form autoComplete="off">
+              <FormControl style={{ minWidth: 120 }} >
+                <InputLabel htmlFor="filterQuery">Filter by  </InputLabel>
+                <Select
+                  value={this.state.currentQuery}
+                >
+                  <MenuItem value="">
+                    <em>No filter</em>
+                  </MenuItem>
+                  <MenuItem onClick={(event) => this.handleClick(event)} value={"created_at"}>Newest </MenuItem>
+                  <MenuItem onChange={(event) => this.handleClick(event)} value={"votes"}>Most liked</MenuItem>
+                  <MenuItem onChange={(event) => this.handleClick(event)} value={"comment_count"}>Most discussed</MenuItem>
+                </Select>
+              </FormControl>
+            </form>
+          </section>
+          <section>
+            {cardContent}
+          </section>
+
+        </>
       )
     }
   }
+
+  handleClick = (event) => {
+    event.preventDefault();
+    const { value } = event.target
+    this.setState({
+      currentQuery: value
+    }, () => console.log(this.state))
+  }
+
 }
 
 export default Articles;

@@ -27,7 +27,7 @@ class Article extends Component {
     const { article_id } = this.props;
     if (article_id !== prevProps.article_id) {
       this.fetchArticle()
-      this.setState({ page: 1, comments: [] }, this.fetchComments)
+      this.setState({ page: 1 }, this.fetchComments)
       window.addEventListener('scroll', this.throttledScroll)
     }
   }
