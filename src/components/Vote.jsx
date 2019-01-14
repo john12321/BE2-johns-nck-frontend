@@ -10,9 +10,9 @@ class Vote extends Component {
   }
 
   vote = (increment) => {
-    const { article_id } = this.props;
+    const { article_id, comment_id } = this.props;
     api
-      .updateVotes(article_id, increment)
+      .updateVotes(article_id, increment, comment_id)
       .catch(err =>
         this.setState(state => ({
           voteChange: state.voteChange - increment,
