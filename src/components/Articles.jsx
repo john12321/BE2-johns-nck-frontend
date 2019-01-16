@@ -18,6 +18,9 @@ class Articles extends Component {
   }
 
   componentDidMount() {
+    this.setState({
+      page: 1
+    })
     this.fetchArticles();
     window.addEventListener('scroll', this.throttleScroll);
   }
@@ -33,7 +36,8 @@ class Articles extends Component {
   }
 
   componentWillUnmount() {
-    window.removeEventListener('scroll', this.throttleScroll)
+    window.removeEventListener('scroll', this.throttleScroll);
+    this.setState({ page: 1 })
   }
 
   fetchArticles() {
@@ -53,12 +57,12 @@ class Articles extends Component {
           }
         });
         if (articles.length < 10) {
-          this.setState({ atEnd: true })
+          this.setState({ atEnd: true, page: 1 })
         }
       })
       .catch(() => {
         window.removeEventListener('scroll', this.throttleScroll);
-        this.setState({ err: true, articles: [] })
+        this.setState({ err: true, articles: [], page: 1 })
         // console.log(this.state)
       })
   }

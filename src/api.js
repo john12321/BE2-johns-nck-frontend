@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-// const BASE_URL = "https://nc-knews-example-fixed.herokuapp.com/api";
-const BASE_URL = "https://johns-ncknews.herokuapp.com/api";
+const BASE_URL = "https://nc-knews-example-fixed.herokuapp.com/api";
+// const BASE_URL = "https://johns-ncknews.herokuapp.com/api";
 
 
 export const getUser = async (username) => {

@@ -67,8 +67,8 @@ class App extends Component {
     return (
       <div className="App">
         <Auth user={user} login={this.login}>
-          <Header user={user} logoutLocalUser={this.logoutLocalUser} />
-          <Nav topics={topics} />
+          {/* <Header user={user} logoutLocalUser={this.logoutLocalUser} /> */}
+          <Nav topics={topics} logoutLocalUser={this.logoutLocalUser} />
 
           <Router className="articles">
             <Articles path="/" topics={topics} />
@@ -78,7 +78,7 @@ class App extends Component {
             <Article path="/:topic/:article_id" topics={topics} user={user} removeItem={this.removeItem} />
             <Errors default />
           </Router>
-          <SideBar user={user} topics={topics} fetchTopics={this.fetchTopics} addNewTopic={this.addNewTopic} />
+          {/* <SideBar user={user} topics={topics} fetchTopics={this.fetchTopics} addNewTopic={this.addNewTopic} /> */}
           {/* <Footer /> */}
         </Auth>
       </div>
