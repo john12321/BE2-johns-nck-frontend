@@ -1,24 +1,25 @@
-:root {
+/* :root {
   --primary: white;
   --font: #62008B;
-}
+} */
 
 
 .App {
   text-align: center;
   display: grid;
-  grid-template: 0.5fr 5fr 0.5fr /1fr;
+  grid-template: 0.5fr 5fr 1fr /1fr;
   grid-template-areas: 
   /* "header header" */
   "nav"
   "articles"
   "footer";
   height: 100vh;
+
 }
 
 @media (max-width: 700px)  {
   .App {
-    grid-template: 0.5fr 5fr 0.5fr/ 1fr;
+    grid-template: 0.5fr 5fr 1fr/ 1fr;
       grid-template-areas:
   "nav"
   "articles"

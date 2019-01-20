@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from '@reach/router';
 
-import { AppBar, Button, CssBaseline, Divider, Drawer, Hidden, IconButton, List, ListItem, ListItemIcon, ListItemText, Toolbar, withStyles } from '@material-ui/core';
+import { AppBar, Button, CssBaseline, Divider, Drawer, Hidden, IconButton, List, ListItem, ListItemIcon, ListItemText, Toolbar, Typography, withStyles } from '@material-ui/core';
 
 import MenuIcon from '@material-ui/icons/Menu';
 import AddIcon from '@material-ui/icons/Add';
@@ -19,6 +19,7 @@ const styles = theme => ({
   },
   drawer: {
     width: drawerWidth,
+
 
   },
   appBar: {
@@ -66,17 +67,19 @@ class Nav extends React.Component {
     const drawer = (
       <>
         <div className={classes.toolbar} />
-        <List>
+        <List >
           {this.props.topics.map(({ slug }) => (
-            <ListItem button key={slug} component={Link} to={`/topics/${slug}`} style={{ textDecoration: 'none', backgroundColor: '#6497b1' }} onClick={() => this.handleDrawerToggle()}>
+            <ListItem button key={slug} component={Link} to={`/topics/${slug}`} style={{ textDecoration: 'none', backgroundColor: '#fff' }} onClick={() => this.handleDrawerToggle()}>
               <ListItemText primary={slug} />
             </ListItem>
           ))}
           <Divider />
-          <ListItem button style={{ textDecoration: 'none', backgroundColor: '#aedfe9' }}>
-            <ListItemIcon><AddIcon /></ListItemIcon>
-            <ListItemText primary="New Topic" />
-          </ListItem>
+          <Link to='/topic/add'>
+            <ListItem button style={{ textDecoration: 'none', backgroundColor: '#5500B6' }}>
+              <ListItemIcon><AddIcon /></ListItemIcon>
+              <ListItemText primary={<Typography variant="h6" style={{ color: '#fff' }}>New Topic</Typography>} />
+            </ListItem>
+          </Link>
 
         </List>
         <Divider />
@@ -86,10 +89,10 @@ class Nav extends React.Component {
     return (
       <div className={classes.root}>
         <CssBaseline />
-        <AppBar position="fixed" className={classes.appBar} style={{ backgroundColor: '#6497b1' }}>
+        <AppBar position="fixed" className={classes.appBar} style={{ backgroundColor: '#fffeee' }}>
           <Toolbar>
             <IconButton
-              color="primary"
+              color="secondary"
               variant="outlined"
               aria-label="Open drawer"
               onClick={this.handleDrawerToggle}

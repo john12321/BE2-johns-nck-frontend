@@ -1,48 +1,88 @@
 import React, { Component } from 'react';
-import { Card, CardHeader, CardContent, Typography } from '@material-ui/core';
+import { Card, CardHeader, CardMedia, CardContent, CardActions, CardActionArea, Typography, withStyles } from '@material-ui/core';
 import { Link } from '@reach/router';
 import Vote from './Vote';
+import PropTypes from 'prop-types';
+
+const styles = {
+  card: {
+    maxWidth: 2000,
+    backgroundColor: '#fffeee',
+  },
+  media: {
+    height: 140,
+  },
+};
+
+
 
 class ArticleCard extends Component {
 
 
-  render(props) {
-    const { article } = this.props;
+  render() {
+    const { article, classes, user } = this.props;
     const {
       article_id,
       author,
-      // body,
-      // comment_count,
+      body,
+      comment_count,
       created_at,
       title,
       topic,
       votes
     } = article
 
-    const formattedDate = new Date(created_at).toString().slice(0, 21);
+    const formattedDate = new Date(created_at).toString().slice(0, 16);
 
 
     return (
       <>
         <br />
-        <Card className="articleCard">
-          <h2 className="articleLink"><Link to={`/${topic}/${article_id}`}>{title}</Link></h2>
-          <CardHeader subheader={author}>
-          </CardHeader>
-          <CardContent>
-            <Typography variant="headline">
-              {topic}
-            </Typography>
-            <Typography>
-              created at: {formattedDate}
-            </Typography>
-          </CardContent>
+        <Card className={classes.card}>
+          <CardActionArea>
+            <CardHeader subheader={author}>
+            </CardHeader>
+            <CardContent >
+              <Typography gutterBottom variant="h5" component="h2">
+                <Link to={`/${topic}/${article_id}`}>{title}</Link>
+              </Typography>
+              <Typography variant="overline" >
+                {topic}
+              </Typography>              <Typography>
+                {formattedDate}
+              </Typography>
+              <br />
+              <Typography>
+                Comments: {comment_count}
+              </Typography>
+            </CardContent>
+          </CardActionArea>
           <Vote article_id={article_id} votes={votes} />
         </Card>
+
+
+        {/* 
+        <h2 className="articleLink"><Link to={`/${topic}/${article_id}`}>{title}</Link></h2>
+        <CardHeader subheader={author}>
+        </CardHeader>
+        <CardContent>
+          <Typography variant="headline">
+            {topic}
+          </Typography>
+          <Typography>
+            created at: {formattedDate}
+          </Typography>
+        </CardContent>
+        <Vote article_id={article_id} votes={votes} />
+      </Card> */}
         <br />
       </>
     );
   }
 }
 
-export default ArticleCard;
+ArticleCard.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(ArticleCard);

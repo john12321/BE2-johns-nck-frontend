@@ -19,6 +19,7 @@ class Articles extends Component {
     atEnd: false,
     sortBy: 'created_at',
     sortAsc: false,
+
   }
 
   componentDidMount() {
@@ -108,7 +109,7 @@ class Articles extends Component {
             <div
               key={article.article_id}
             >
-              <ArticleCard style={{ padding: 5 }} article={article} user={this.props.user} fetchArticles={this.fetchArticles} />
+              <ArticleCard article={article} user={this.props.user} fetchArticles={this.fetchArticles} />
             </div>
           )
         })}
