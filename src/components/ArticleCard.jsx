@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import { Card, CardHeader, CardMedia, CardContent, CardActions, CardActionArea, Typography, withStyles } from '@material-ui/core';
+import { Card, CardHeader, CardContent, CardActionArea, Typography, withStyles } from '@material-ui/core';
 import { Link } from '@reach/router';
 import Vote from './Vote';
 import PropTypes from 'prop-types';
 
 const styles = {
   card: {
-    maxWidth: 2000,
-    backgroundColor: '#fffeee',
+    maxWidth: 3000,
+    backgroundColor: '#fff',
   },
   media: {
     height: 140,
@@ -20,11 +20,10 @@ class ArticleCard extends Component {
 
 
   render() {
-    const { article, classes, user } = this.props;
+    const { article, classes } = this.props;
     const {
       article_id,
       author,
-      body,
       comment_count,
       created_at,
       title,
@@ -46,7 +45,7 @@ class ArticleCard extends Component {
               <Typography gutterBottom variant="h5" component="h2">
                 <Link to={`/${topic}/${article_id}`}>{title}</Link>
               </Typography>
-              <Typography variant="overline" >
+              <Typography variant="overline" style={{ color: '#6a00b7' }} >
                 {topic}
               </Typography>              <Typography>
                 {formattedDate}

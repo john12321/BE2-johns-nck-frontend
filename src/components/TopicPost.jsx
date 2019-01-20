@@ -1,12 +1,48 @@
 import React, { Component } from 'react';
 import * as api from '../api';
-import { Card, Button, CardContent } from '@material-ui/core';
+import { Avatar, Input, InputLabel, Button, Card, CardHeader, CardContent, Typography, CssBaseline, FormControl, FormControlLabel, Checkbox, Paper, withStyles, TextField, MenuItem, Select } from '@material-ui/core';
 import { navigate } from '@reach/router';
+
+const styles = theme => ({
+  main: {
+    width: 'auto',
+    display: 'block',
+    marginLeft: theme.spacing.unit * 3,
+    marginRight: theme.spacing.unit * 3,
+    [theme.breakpoints.up(400 + theme.spacing.unit * 3 * 2)]: {
+      width: 400,
+      marginLeft: 'auto',
+      marginRight: 'auto',
+    },
+  },
+  paper: {
+    marginTop: theme.spacing.unit * 8,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme.spacing.unit * 3}px`,
+  },
+  avatar: {
+    margin: theme.spacing.unit,
+    backgroundColor: theme.palette.secondary.main,
+  },
+  form: {
+    width: '100%',
+    marginTop: theme.spacing.unit,
+  },
+  submit: {
+    marginTop: theme.spacing.unit * 3,
+  },
+  // textField: {
+  //   marginLeft: theme.spacing.unit,
+  //   marginRight: theme.spacing.unit,
+  // },
+});
+
 
 class TopicPost extends Component {
   state = {
     topic: {},
-    // topicPosted: false,
     err: false
   };
 
@@ -17,7 +53,6 @@ class TopicPost extends Component {
     const description = event.target.description.value;
     api.postTopic(slug, description)
       .then(topic => {
-        console.log(topic)
         this.setState(() => ({ topic, topicPosted: true }));
         // this.props.fetchTopics();
         navigate(`/topics/${topic.slug}`)
@@ -28,39 +63,37 @@ class TopicPost extends Component {
   };
 
   render() {
-    const { topicPosted } = this.state;
-    return !topicPosted ? (
-      <>
-        <Card className="post-form">
-          <section>post a new topic</section>
-          <CardContent>
-            <form onSubmit={this.handleSubmit}>
-              <div>
-                <label htmlFor='slug'>Topic:</label>
-                <input type='text' id='slug' required />
-              </div>
-              <div>
-                <label htmlFor='description'>Description:</label>
-                <input type='text' id='description' required />
-              </div>
+    const { classes, user } = this.props;
+    const { err } = this.state;
+    return (
+      <main className={this.props.classes.main} >
+        <CssBaseline />
+        <Paper className={classes.paper}>
+          <Avatar className={classes.avatar}>
+            {user.avatar}
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Post a new topic
+        </Typography>
+          <form className={classes.form} onSubmit={this.handleSubmit}>
+            <FormControl margin="normal" required fullWidth>
+              <InputLabel htmlFor='slug'>Topic:</InputLabel>
+              <Input type='text' id='slug' required />
+              <FormControl>
+                <InputLabel htmlFor='description'>Description:</InputLabel>
+                <Input type='text' id='description' required />
+              </FormControl>
               <Button type='submit' variant="outlined" onSubmit={this.handleSubmit} >Post Topic</Button>
-            </form>
-          </CardContent>
-        </Card>
-      </>
-    ) : (
-        <>
-          {/* <br />
-          <Card>
-            <section>Your topic has been posted!</section>
-            <CardContent>
-              <Typography>{topic.slug}</Typography>
-              <Typography>{topic.description}</Typography>
-            </CardContent>
-          </Card> */}
-        </>
-      );
+            </FormControl>
+          </form>
+          {err && (
+            <section>
+              <p>Oops! Something went wrong. Please try again.</p>
+            </section>
+          )}
+        </Paper>
+      </main>
+    )
   }
 }
-
-export default TopicPost;
+export default withStyles(styles)(TopicPost);

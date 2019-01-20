@@ -9,6 +9,8 @@ import { Router } from '@reach/router';
 import * as api from './api';
 import Errors from './components/Errors';
 import { navigate } from '@reach/router';
+import TopicPost from './components/TopicPost';
+
 
 
 
@@ -69,7 +71,7 @@ class App extends Component {
           <Router className="articles">
             <Articles path="/" topics={topics} user={user} />
             <Articles path="/topics/:topic" topics={topics} user={user} />
-            <Articles user={user} path="topic/add" topics={topics} />
+            <TopicPost user={user} path="topic/add" topics={topics} />
             <Articles user={user} path="article/add" topics={topics} />
             <Article path="/:topic/:article_id" topics={topics} user={user} removeItem={this.removeItem} />
             <Errors default />

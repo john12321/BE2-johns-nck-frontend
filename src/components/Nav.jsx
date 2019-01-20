@@ -74,8 +74,8 @@ class Nav extends React.Component {
             </ListItem>
           ))}
           <Divider />
-          <Link to='/topic/add'>
-            <ListItem button style={{ textDecoration: 'none', backgroundColor: '#5500B6' }}>
+          <Link to='/topic/add' style={{ textDecoration: 'none' }}>
+            <ListItem button style={{ backgroundColor: '#c00000' }}>
               <ListItemIcon><AddIcon /></ListItemIcon>
               <ListItemText primary={<Typography variant="h6" style={{ color: '#fff' }}>New Topic</Typography>} />
             </ListItem>

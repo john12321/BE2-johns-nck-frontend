@@ -7,11 +7,11 @@
 .App {
   text-align: center;
   display: grid;
-  grid-template: 0.5fr 5fr 1fr /1fr;
+  grid-template: 1fr 1fr 5fr 0.5fr /1fr;
   grid-template-areas: 
-  /* "header header" */
   "nav"
-  "articles"
+  "articles" 
+  "topic"
   "footer";
   height: 100vh;
 
@@ -19,9 +19,10 @@
 
 @media (max-width: 700px)  {
   .App {
-    grid-template: 0.5fr 5fr 1fr/ 1fr;
+    grid-template: 1fr 1fr 5fr 1fr/ 1fr;
       grid-template-areas:
   "nav"
+  "topic"
   "articles"
   "footer";
   height: 100vh;
@@ -45,41 +46,6 @@
   }
 
 
-
-/* ---------------------header component -----------------  */
-
-.header {
-  grid-area: header;
-  background-color: rgb(112, 170, 206);
-  
-}
-
-.header-name {
-  font: var(--font);
-}
-
-.header-logo {
-  height : 3em;
-  width: 4em;
-}
-
-.addBtn {
-  padding: 2px;
-}
-
-/* ---------------------nav component ----------------- 
-.nav {
-  grid-area: nav;
-  overflow-x: scroll; 
-  padding: 1% 1% 1% 1%;
-}
-
-.navButton {
-  font: var(--font);
-} */
-
-
-
 /* ---------------------articles component -----------------  */
 .articles {
   padding: 12% 5% 5% 5%; 
@@ -97,15 +63,6 @@
 }
 
 
-/* test filter component---------------------------------- */
-.testFilter {
-  grid-area: testFilter;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
 
 /* ----------------article card component --------------- */
 
@@ -113,30 +70,9 @@
   padding: 1 1 1 1;
 }
 
-/* article & topic post form ----------------*/
-.post-form{
-  display: flex;
-  flex-direction: column;
-  justify-content: right;
-  align-items: center;
-}
-
-/* ---------------------sidebar component -----------------  */
-.sidebar {
-  grid-area: sidebar;
-  padding: 1% 1% 1% 1%;
-
-}
-
-
-/* ------------------topicPost component ------------------- */
-
-
-/*--------- comments sidebar component -------------------*/
-
 
 /* ---------------------footer component -----------------  */
 .footer {
   grid-area: footer;
-  background-color: rgb(112, 170, 206);
+  background-color:#c00000;
 }

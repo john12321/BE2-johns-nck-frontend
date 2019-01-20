@@ -29,9 +29,9 @@ class Vote extends Component {
     const { votes } = this.props;
     return (
       <div>
-        <Button disabled={voteChange === 1} type="submit" onClick={() => this.vote(1)}><ThumbUp style={{ color: 'blue' }}></ThumbUp></Button>
+        <Button disabled={voteChange === 1} type="submit" onClick={() => this.vote(1)}><ThumbUp style={{ color: '#0E28EB' }}></ThumbUp></Button>
         {votes + voteChange}
-        <Button disabled={voteChange === -1} type="submit" onClick={() => this.vote(-1)}><ThumbDown style={{ color: 'red' }}></ThumbDown></Button>
+        <Button disabled={voteChange === -1} type="submit" onClick={() => this.vote(-1)}><ThumbDown style={{ color: '#BD001D' }}></ThumbDown></Button>
       </div>
     );
   }
