@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import './App.css';
-import Header from './components/Header';
 import Nav from './components/Nav';
 import Articles from './components/Articles';
 import Article from './components/Article';
-import SideBar from './components/SideBar';
-// import Footer from './components/Footer';
+import Footer from './components/Footer';
 import Auth from './components/Auth';
 import { Router } from '@reach/router';
 import * as api from './api';
@@ -67,19 +65,16 @@ class App extends Component {
     return (
       <div className="App">
         <Auth user={user} login={this.login}>
-          {/* <Header user={user} logoutLocalUser={this.logoutLocalUser} /> */}
           <Nav topics={topics} logoutLocalUser={this.logoutLocalUser} />
-
           <Router className="articles">
-            <Articles path="/" topics={topics} />
-            <Articles path="/topics/:topic" topics={topics} />
+            <Articles path="/" topics={topics} user={user} />
+            <Articles path="/topics/:topic" topics={topics} user={user} />
             <Articles user={user} path="topic/add" topics={topics} />
             <Articles user={user} path="article/add" topics={topics} />
             <Article path="/:topic/:article_id" topics={topics} user={user} removeItem={this.removeItem} />
             <Errors default />
           </Router>
-          {/* <SideBar user={user} topics={topics} fetchTopics={this.fetchTopics} addNewTopic={this.addNewTopic} /> */}
-          {/* <Footer /> */}
+          <Footer />
         </Auth>
       </div>
     );

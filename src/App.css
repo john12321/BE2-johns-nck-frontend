@@ -7,21 +7,22 @@
 .App {
   text-align: center;
   display: grid;
-  grid-template: 1fr 5fr /1fr;
+  grid-template: 0.5fr 5fr 0.5fr /1fr;
   grid-template-areas: 
   /* "header header" */
   "nav"
-  "articles";
-  /* "footer footer"; */
+  "articles"
+  "footer";
   height: 100vh;
 }
 
 @media (max-width: 700px)  {
   .App {
-    grid-template: 0.5fr 5fr/ 1fr;
+    grid-template: 0.5fr 5fr 0.5fr/ 1fr;
       grid-template-areas:
   "nav"
-  "articles";
+  "articles"
+  "footer";
   height: 100vh;
   }
   }
@@ -57,15 +58,15 @@
 }
 
 .header-logo {
-  height : 60px;
-  width: 80px;
+  height : 3em;
+  width: 4em;
 }
 
 .addBtn {
   padding: 2px;
 }
 
-/* ---------------------nav component -----------------  */
+/* ---------------------nav component ----------------- 
 .nav {
   grid-area: nav;
   overflow-x: scroll; 
@@ -74,12 +75,13 @@
 
 .navButton {
   font: var(--font);
-}
+} */
 
 
 
 /* ---------------------articles component -----------------  */
 .articles {
+  padding: 12% 5% 5% 5%; 
   grid-area: articles;
   /* overflow-y: scroll; */
 }
@@ -93,10 +95,21 @@
   padding: 5% 5% 5% 5%;  
 }
 
+
+/* test filter component---------------------------------- */
+.testFilter {
+  grid-area: testFilter;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+
 /* ----------------article card component --------------- */
 
 .articleCard{
-  padding: 1% 1% 1% 1%;
+  padding: 1 1 1 1;
 }
 
 /* article & topic post form ----------------*/

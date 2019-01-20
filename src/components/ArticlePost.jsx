@@ -1,67 +1,129 @@
 import React, { Component } from 'react';
 import * as api from '../api';
-import { Card, Button, CardContent } from '@material-ui/core';
+import { Avatar, Input, InputLabel, Button, Card, CardHeader, CardContent, Typography, CssBaseline, FormControl, FormControlLabel, Checkbox, Paper, withStyles, TextField, MenuItem, Select } from '@material-ui/core';
 import { navigate } from '@reach/router';
+import PropTypes from 'prop-types';
+
+const styles = theme => ({
+  main: {
+    width: 'auto',
+    display: 'block',
+    marginLeft: theme.spacing.unit * 3,
+    marginRight: theme.spacing.unit * 3,
+    [theme.breakpoints.up(400 + theme.spacing.unit * 3 * 2)]: {
+      width: 400,
+      marginLeft: 'auto',
+      marginRight: 'auto',
+    },
+  },
+  paper: {
+    marginTop: theme.spacing.unit * 8,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme.spacing.unit * 3}px`,
+  },
+  avatar: {
+    margin: theme.spacing.unit,
+    backgroundColor: theme.palette.secondary.main,
+  },
+  form: {
+    width: '100%',
+    marginTop: theme.spacing.unit,
+  },
+  submit: {
+    marginTop: theme.spacing.unit * 3,
+  },
+  // textField: {
+  //   marginLeft: theme.spacing.unit,
+  //   marginRight: theme.spacing.unit,
+  // },
+});
+
 
 class ArticlePost extends Component {
   state = {
-    articlePosted: false,
+    // articlePosted: false,
+    title: '',
+    body: '',
+    topic: '',
+    err: false,
   };
 
 
+  handleChange = (event) => {
+    const { value, name } = event.target;
+    this.setState({
+      [name]: value
+    });
+  };
+
   handleSubmit = event => {
     event.preventDefault();
-    const title = event.target.title.value;
-    const body = event.target.body.value;
+    const { title, body, topic } = this.state;
     const user_id = this.props.user.user_id;
-    const topic = event.target.topic.value;
     api.postArticle(topic, { title, body, user_id }).then(article => {
-      this.setState(() => ({ articlePosted: true }));
+      // this.setState(() => ({ articlePosted: true }));
       navigate(`/${article.topic}/${article.article_id}`);
+    }).catch(() => {
+      this.setState({ err: true })
     })
   };
 
 
   render() {
-    const { topics } = this.props;
-    const { articlePosted } = this.state;
+    const { topics, classes, user } = this.props;
+    const { title, body, topic, err } = this.state;
+
     return (
-      <Card className="post-form">
-        <section>Post an Article</section>
-        <CardContent>
-          <form onSubmit={this.handleSubmit}>
-            <div>
-              <label htmlFor='title'>Title:</label>
-              <input type='text' id='title' required />
-            </div>
-            <div>
-              <label htmlFor='body'>Body:</label>
-              <input type='text' id='body' required />
-            </div>
-            <div>
-              <label htmlFor='topic'>Topic:</label>
-              <select id='topic'>
-                {topics.map(topic => {
-                  return (
-                    <option key={topic.slug} value={topic.slug}>
-                      {topic.slug}
-                    </option>
-                  );
-                })}
-              </select>
-            </div>
+      <main className={this.props.classes.main} >
+        <CssBaseline />
+        <Paper className={classes.paper}>
+          <Avatar className={classes.avatar}>
+            {user.avatar}
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Post a new article
+        </Typography>
+          <form className={classes.form} onSubmit={this.handleSubmit}>
+            <FormControl margin="normal" required fullWidth>
+              <InputLabel htmlFor="title">Article Title</InputLabel>
+              <Input id="title" value={title} name="title" autoComplete="title" autoFocus onChange={this.handleChange} required />
+            </FormControl>
+            <TextField
+              onChange={this.handleChange}
+              required
+              fullWidth
+              value={body}
+              name="body"
+              id="outlined-required"
+              label="Content"
+              className={classes.textField}
+              margin="normal"
+              variant="outlined"
+            />
+            <InputLabel htmlFor="topic">Topic{' '}</InputLabel>
+            <Select name="topic" id='topic' value={topic} onChange={this.handleChange} required>
+              {topics.map(topic => {
+                return (
+                  <MenuItem key={topic.slug} value={topic.slug}>
+                    {topic.slug}
+                  </MenuItem>
+                );
+              })}
+            </Select>
             <Button type='submit' variant="outlined" onSubmit={this.handleSubmit}>Post Article</Button>
           </form>
-        </CardContent>
-        {articlePosted && (
-          <section>
-            <h1>Posted!</h1>
-          </section>
-        )}
+          {err && (
+            <section>
+              <p>Oops! Something went wrong. Please try again.</p>
+            </section>
+          )}
 
-      </Card>
+        </Paper>
+      </main>
     );
   }
 }
 
-export default ArticlePost;
+export default withStyles(styles)(ArticlePost);

@@ -2,14 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from '@reach/router';
 
-import { AppBar, Button, CssBaseline, Divider, Drawer, Hidden, IconButton, List, ListItem, ListItemIcon, ListItemText, Toolbar, Typography, withStyles, Collapse } from '@material-ui/core';
+import { AppBar, Button, CssBaseline, Divider, Drawer, Hidden, IconButton, List, ListItem, ListItemIcon, ListItemText, Toolbar, withStyles } from '@material-ui/core';
 
 import MenuIcon from '@material-ui/icons/Menu';
 import AddIcon from '@material-ui/icons/Add';
-import ExpandLess from '@material-ui/icons/ExpandLess';
-import ExpandMore from '@material-ui/icons/ExpandMore';
-import StarBorder from '@material-ui/icons/StarBorder';
-import ListSubheader from '@material-ui/core/ListSubheader';
+
 
 
 const drawerWidth = 200;
@@ -28,10 +25,15 @@ const styles = theme => ({
     marginLeft: 0,
     width: '100%',
     zIndex: '2000',
+    backgroundColor: theme.primary,
 
   },
   menuButton: {
     marginRight: 20,
+  },
+
+  iconButton: {
+    marginRight: 10,
   },
 
   toolbar: theme.mixins.toolbar,
@@ -43,6 +45,10 @@ const styles = theme => ({
     flexGrow: 1,
     padding: theme.spacing.unit * 3,
   },
+  navLogo: {
+    height: 50,
+    width: 60,
+  }
 });
 
 class Nav extends React.Component {
@@ -58,44 +64,44 @@ class Nav extends React.Component {
     const { classes, theme, user, logoutLocalUser } = this.props;
 
     const drawer = (
-      <div>
+      <>
         <div className={classes.toolbar} />
         <List>
           {this.props.topics.map(({ slug }) => (
-            <ListItem button key={slug} component={Link} to={`/topics/${slug}`} style={{ textDecoration: 'none' }} onClick={() => this.handleDrawerToggle()}>
+            <ListItem button key={slug} component={Link} to={`/topics/${slug}`} style={{ textDecoration: 'none', backgroundColor: '#6497b1' }} onClick={() => this.handleDrawerToggle()}>
               <ListItemText primary={slug} />
             </ListItem>
           ))}
-          {['New Topic', 'New Article'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>{index < 2 ? <AddIcon /> : <AddIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
+          <Divider />
+          <ListItem button style={{ textDecoration: 'none', backgroundColor: '#aedfe9' }}>
+            <ListItemIcon><AddIcon /></ListItemIcon>
+            <ListItemText primary="New Topic" />
+          </ListItem>
 
         </List>
         <Divider />
-      </div>
+      </>
     );
 
     return (
       <div className={classes.root}>
         <CssBaseline />
-        <AppBar position="fixed" className={classes.appBar} style={{ justifyContent: 'space-between', backgroundColor: '#aecfe4' }}>
+        <AppBar position="fixed" className={classes.appBar} style={{ backgroundColor: '#6497b1' }}>
           <Toolbar>
             <IconButton
-              color="inherit"
+              color="primary"
+              variant="outlined"
               aria-label="Open drawer"
               onClick={this.handleDrawerToggle}
               className={classes.menuButton}
             >
               <MenuIcon />
             </IconButton>
-            <Link to={'/'}>
-              <img className="header-logo" src="https://northcoders.com/images/logos/learn_to_code_manchester_rw_original.png"
+            <Link to={'/'} style={{ padding: 1 }}>
+              <img className={classes.navLogo} src="https://northcoders.com/images/logos/learn_to_code_manchester_rw_original.png"
                 alt="Northcoders logo"></img>
             </Link>
-            <Button type="submit" onClick={logoutLocalUser} variant="outlined" color="secondary">
+            <Button type="submit" onClick={logoutLocalUser} variant="outlined" color="secondary" style={{ flex: 1, marginLeft: 60 }}>
               Log out
             </Button>
           </Toolbar>

@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-const BASE_URL = "https://nc-knews-example-fixed.herokuapp.com/api";
-// const BASE_URL = "https://johns-ncknews.herokuapp.com/api";
+// const BASE_URL = "https://nc-knews-example-fixed.herokuapp.com/api";
+const BASE_URL = "https://johns-ncknews.herokuapp.com/api";
 
 
 export const getUser = async (username) => {
@@ -22,8 +22,8 @@ export const postTopic = async (slug, description) => {
   return data.topic;
 };
 
-export const getArticles = async (topic, page, sort_by) => {
-  const URL = topic ? `${BASE_URL}/topics/${topic}/articles?p=${page}&sort_by=${sort_by}` : `${BASE_URL}/articles?p=${page}&sort_by=${sort_by}`;
+export const getArticles = async (topic, page, sortBy = 'article_id', sortAsc = false) => {
+  const URL = topic ? `${BASE_URL}/topics/${topic}/articles?p=${page}&sort_by=${sortBy}&sort_asc=${sortAsc}` : `${BASE_URL}/articles?p=${page}&sort_by=${sortBy}&sort_asc=${sortAsc}`;
   const { data } = await axios.get(URL);
   // console.log(page)
   return data.articles;
@@ -64,6 +64,7 @@ export const postArticle = async (topic, newArticle) => {
     `${BASE_URL}/topics/${topic}/articles`,
     newArticle,
   );
+  console.log(data.article)
   return data.article;
 };
 

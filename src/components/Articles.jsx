@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import * as api from '../api';
 import ArticleCard from './ArticleCard';
-import { Button, FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
+import { Button, FormControl, InputLabel, Select, MenuItem, FormGroup } from '@material-ui/core';
 import { Link } from '@reach/router';
 import throttle from 'lodash.throttle';
+import ArticlePost from './ArticlePost';
+import Dropdown from 'react-dropdown';
+import 'react-dropdown/style.css';
 
 
 class Articles extends Component {
@@ -13,38 +16,52 @@ class Articles extends Component {
     isLoading: true,
     page: 1,
     err: false,
-    currentQuery: "",
-    atEnd: false
+    atEnd: false,
+    sortBy: 'created_at',
+    sortAsc: false,
   }
 
   componentDidMount() {
-    this.setState({
-      page: 1
-    })
     this.fetchArticles();
+    window.scrollTo(0, 0)
     window.addEventListener('scroll', this.throttleScroll);
   }
 
   componentDidUpdate(prevProps, prevState) {
+    const { atEnd, sortBy, sortAsc } = this.state;
     const { topic } = this.props;
     if (topic !== prevProps.topic) {
-      this.fetchArticles(topic);
+      this.setState(() => ({ page: 1, err: false }));
+      this.fetchArticles();
+      window.scrollTo(0, 0)
     }
     if (this.state.page !== prevState.page) {
-      this.fetchArticles(topic);
+      if (!atEnd) {
+        this.fetchArticles();
+        window.scrollTo(0, 0)
+      }
     }
   }
 
   componentWillUnmount() {
     window.removeEventListener('scroll', this.throttleScroll);
-    this.setState({ page: 1 })
+    this.setState((state) => ({ page: 1 })
+    )
+  };
+
+
+  handleChange = (event) => {
+    const { value } = event;
+    this.setState({
+      sortBy: value
+    }, () => this.fetchArticles())
   }
 
   fetchArticles() {
     const { topic } = this.props;
-    const { page, currentQuery } = this.state;
+    const { page, sortBy, sortAsc } = this.state;
     api
-      .getArticles(topic, page, currentQuery)
+      .getArticles(topic, page, sortBy, sortAsc)
       .then(articles => {
         this.setState(prevState => {
           if (page === 1) {
@@ -57,18 +74,16 @@ class Articles extends Component {
           }
         });
         if (articles.length < 10) {
-          this.setState({ atEnd: true, page: 1 })
+          this.setState({ atEnd: true })
         }
       })
       .catch(() => {
         window.removeEventListener('scroll', this.throttleScroll);
-        this.setState({ err: true, articles: [], page: 1 })
-        // console.log(this.state)
+        this.setState({ err: true, articles: [] })
       })
   }
 
   handleScroll = () => {
-    console.log('scrolling', window.scrollY)
     const scrolledHeight = window.scrollY + window.innerHeight;
     const bottom = document.body.scrollHeight - 200;
     if (scrolledHeight >= bottom) {
@@ -76,85 +91,67 @@ class Articles extends Component {
         return { page: state.page + 1 }
       })
     }
-    // // test code below--------------------------------
-    // else {
-    //   console.log('not firing');
-    // }
   };
 
   throttleScroll = throttle(this.handleScroll, 1500);
 
 
-  updatecurrentQuery = (sort_by) => {
-    this.state({ currentQuery: { sort_by } });
-  }
-
-
   render() {
-    const { articles } = this.state
+    const { articles, atEnd, err, sortBy } = this.state;
+    const { topics } = this.props;
     let cardContent = null;
 
+    cardContent = (
+      <div className="cardContent">
+        {articles.map(article => {
+          return (
+            <div
+              key={article.article_id}
+            >
+              <ArticleCard style={{ padding: 5 }} article={article} user={this.props.user} fetchArticles={this.fetchArticles} />
+            </div>
+          )
+        })}
+      </div>)
 
-    if (articles.length < 1) {
+    if (atEnd) {
       return (
         <>
-          <p>No articles for this topic yet. Be the first!</p>
-          <Button >
-            <Link to='/article/add' className="addBtn" style={{ textDecoration: 'none' }}>New Article</Link>
-          </Button>
-        </>
-      )
-    } else {
-
-      cardContent = (
-        <div className="cardContent">
-          {articles.map(article => {
-            return (
-              <div
-                key={article.article_id}
-              >
-                <ArticleCard class="test" article={article} user={this.props.user} fetchArticles={this.fetchArticles} />
-              </div>
-            )
-          })}
-        </div>
-      )
-      return (
-        <>
-          <section >
-            <form autoComplete="off">
-              <FormControl style={{ minWidth: 120 }} >
-                <InputLabel htmlFor="filterQuery">Filter by  </InputLabel>
-                <Select
-                  value={this.state.currentQuery}
-                >
-                  <MenuItem value="">
-                    <em>No filter</em>
-                  </MenuItem>
-                  <MenuItem onClick={(event) => this.handleClick(event)} value={"created_at"}>Newest </MenuItem>
-                  <MenuItem onChange={(event) => this.handleClick(event)} value={"votes"}>Most liked</MenuItem>
-                  <MenuItem onChange={(event) => this.handleClick(event)} value={"comment_count"}>Most discussed</MenuItem>
-                </Select>
-              </FormControl>
-            </form>
-          </section>
-          <section>
-            {cardContent}
-          </section>
-
+          {cardContent}
+          <ArticlePost topics={topics} user={this.props.user} topic={this.props.topic} sortBy={sortBy} />
         </>
       )
     }
+    else if (err) {
+      return (
+        <>
+          <p>No articles for this topic yet. Be the first!</p>
+          <ArticlePost topics={this.props.topics} user={this.props.user} topic={this.props.topic} />
+        </>
+      )
+    }
+    else return (
+      <>
+        <FormGroup style={{ paddingTop: 30 }} row>
+          <FormControl>
+            <Dropdown
+              options={[
+                { value: "created_at", label: "Latest" },
+                { value: "comment_count", label: "Most discussed" },
+                { value: "votes", label: "Most popular" },
+              ]}
+              onChange={this.handleChange}
+            />
+          </FormControl>
+          <FormControl>
+            {/* <Sort /> */}
+          </FormControl>
+        </FormGroup>
+        {cardContent}
+      </>
+    )
   }
-
-  handleClick = (event) => {
-    event.preventDefault();
-    const { value } = event.target
-    this.setState({
-      currentQuery: value
-    }, () => console.log(this.state))
-  }
-
 }
+
 
 export default Articles;
