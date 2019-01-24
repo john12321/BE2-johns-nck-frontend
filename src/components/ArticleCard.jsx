@@ -15,7 +15,6 @@ const styles = {
 };
 
 
-
 class ArticleCard extends Component {
 
 
@@ -47,7 +46,8 @@ class ArticleCard extends Component {
               </Typography>
               <Typography variant="overline" style={{ color: '#6a00b7' }} >
                 {topic}
-              </Typography>              <Typography>
+              </Typography> 
+              <Typography>
                 {formattedDate}
               </Typography>
               <br />
@@ -58,22 +58,6 @@ class ArticleCard extends Component {
           </CardActionArea>
           <Vote article_id={article_id} votes={votes} />
         </Card>
-
-
-        {/* 
-        <h2 className="articleLink"><Link to={`/${topic}/${article_id}`}>{title}</Link></h2>
-        <CardHeader subheader={author}>
-        </CardHeader>
-        <CardContent>
-          <Typography variant="headline">
-            {topic}
-          </Typography>
-          <Typography>
-            created at: {formattedDate}
-          </Typography>
-        </CardContent>
-        <Vote article_id={article_id} votes={votes} />
-      </Card> */}
         <br />
       </>
     );

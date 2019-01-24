@@ -2,12 +2,22 @@ import React, { Component } from 'react';
 import * as api from "../api";
 import { navigate } from '@reach/router';
 import Vote from "./Vote";
-import { Card, CardHeader, CardContent, Typography, Button } from '@material-ui/core';
+import { Card, CardHeader, CardContent, Typography, Button, CardActionArea, CardActions, withStyles } from '@material-ui/core';
 import moment from 'moment';
 import DeleteIcon from '@material-ui/icons/Delete';
 import CommentPost from './CommentPost';
 import throttle from 'lodash.throttle';
+import PropTypes from 'prop-types';
 
+const styles = {
+  card: {
+    maxWidth: 3000,
+    backgroundColor: '#fff',
+  },
+  media: {
+    height: 140,
+  },
+};
 
 class Article extends Component {
   state = {
@@ -36,7 +46,7 @@ class Article extends Component {
     api
       .getArticle(this.props.article_id)
       .then(article => {
-        this.setState({ thisArticle: article, isLoading: false });
+        this.setState({ thisArticle: article });
       })
   }
 
@@ -45,7 +55,7 @@ class Article extends Component {
     const { page } = this.state
     api.getComments(article_id, page).then(comments => {
       this.setState((state) => {
-        return { comments: [...state.comments, ...comments] }
+        return { comments: [...state.comments, ...comments], isLoading: false }
       })
       if (comments.length < 10) {
         window.removeEventListener('scroll', this.throttledScroll)
@@ -54,8 +64,6 @@ class Article extends Component {
       window.removeEventListener('scroll', this.throttledScroll)
     })
   }
-
-
 
   removeItem = () => {
     api
@@ -87,10 +95,9 @@ class Article extends Component {
     }
   }
 
-  throttledScroll = throttle(this.handleScroll, 2000)
+  throttledScroll = throttle(this.handleScroll, 2000);
 
   render() {
-
     const {
       thisArticle: {
         title,
@@ -103,7 +110,10 @@ class Article extends Component {
       },
       isLoading, comments
     } = this.state;
-    const { user } = this.props;
+    console.log(comments)
+    const { user, topic, classes } = this.props;
+
+    const formattedDate = new Date(created_at).toString().slice(0, 16);
 
     if (isLoading) {
       return (
@@ -112,71 +122,90 @@ class Article extends Component {
     } else if (article_id) {
       return (
         <>
-          <Card className="singleArticleCard" >
-            <CardHeader subheader={author}>
-            </CardHeader>
-            <CardContent>
-              <Typography variant="headline">
-                {title}
-              </Typography>
-              <p>{body}</p>
-              <span>Creation date:{moment(created_at).format(
-                'dddd, MMMM Do YYYY, h:mm a',
-              )}</span>
-              <br />
-              <span>Comment count: {comment_count}</span>
-            </CardContent>
-            <br />
-            {user.username === author && (
-              <Button size="small" type="submit" onClick={this.removeItem} variant="contained" color="secondary" >
-                Delete
+          <Card className={classes.card} >
+            <CardActionArea>
+              <CardHeader subheader={author}>
+              </CardHeader>
+              <CardContent>
+                <Typography gutterBottom variant="h5" component="h2">
+                  {title}
+                </Typography>
+                <Typography variant="overline" style={{ color: '#6a00b7' }} >
+                  {topic}
+                </Typography>
+                <Typography>
+                  {formattedDate}
+                </Typography>
+                <br />
+                <Typography>
+                  {body}
+                </Typography>
+                <br />
+                <Typography>
+                  Comments: {comment_count}
+                </Typography>
+              </CardContent>
+              <CardActions>
+                {user.username === author && (
+                  <Button size="small" type="submit" onClick={this.removeItem} variant="contained" color="secondary" >
+                    Delete
         <DeleteIcon />
-              </Button>)}
-            <br />
+                  </Button>)}
+              </CardActions>
+            </CardActionArea>
             <Vote votes={votes} article_id={article_id} />
-            <br />
           </Card>
           <br />
-          <CommentPost addComment={this.addComment} user={user} />
-          <br />
 
-          <h2>Comments</h2>
+          <CommentPost addComment={this.addComment} user={user} />
 
           {comments.map(({ body, comment_id, created_at, author, votes }) => {
             return (
-              <Card key={comment_id} className="commentCard">
-                <CardHeader subheader={author}>
-                </CardHeader>
-                <CardContent>
-                  <Typography variant="headline">
-                    {title}
-                  </Typography>
-                  <p>{body}</p>
-                  <span>submitted:{moment(created_at).startOf('day').fromNow()}</span>
-                  <br />
-                  <span>Comment count: {comment_count}</span>
-                </CardContent>
-                {user.username === author && (
-                  <Button size="small" type="submit" onClick={() => this.removeItem(comment_id)} variant="contained" color="secondary" >
-                    Delete comment
-                      <DeleteIcon />
-                  </Button>)}
+              <div key={comment_id}>
                 <br />
-                <Vote votes={votes} article_id={article_id} comment_id={comment_id} />
-              </Card>
+                <Card className="commentCard">
+                  <CardActionArea>
+                    <Typography gutterBottom variant="h5" component="h2">
+                      {/* Comment added {formattedDate} */}
+                      Comment submitted: {moment(created_at).startOf('day').fromNow()}
+                    </Typography>
+                    <CardHeader subheader={author}>
+                    </CardHeader>
+                    <CardContent>
+                      <Typography >
+                        {body}
+                      </Typography>
+                      <br />
+                      <Typography >
+                        Comment id: {comment_id}
+                      </Typography>
+                    </CardContent>
+                    <CardActions>
+                      {author === user.username && (
+                        <Button size="small" type="submit" onClick={() => this.removeItem(comment_id)} variant="contained" color="secondary" >
+                          Delete comment
+                      <DeleteIcon />
+                        </Button>)}
+                    </CardActions>
+                    <br />
+                  </CardActionArea>
+                  <Vote votes={votes} article_id={article_id} comment_id={comment_id} />
+                </Card>
+                <br />
+              </div>
             )
-          })
           }
-
+          )}
         </>
-
-
-      );
+      )
     }
 
   }
 
+};
 
-}
+Article.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
 
-export default Article;
+export default withStyles(styles)(Article);

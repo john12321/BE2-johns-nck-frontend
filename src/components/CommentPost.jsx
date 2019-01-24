@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button } from '@material-ui/core';
+import { Button, Card, InputLabel, Input, FormControl, CardActionArea, CardActions } from '@material-ui/core';
 class CommentPost extends Component {
   state = {
     comment: ''
@@ -24,18 +24,24 @@ class CommentPost extends Component {
 
   render() {
     return (
-      <form onSubmit={this.addComment}>
-        <label>Post your comment,  {this.props.user.username}</label>
-        <input
-          type="text"
-          onChange={this.handleChange}
-          id="comment"
-          value={this.state.comment}
-        />
-        <Button type="submit" variant="outlined" onSubmit={this.addComment}>
-          submit
+      <Card style={{ backgroundColor: '#c00000', padding: 4 }}>
+        <form onSubmit={this.addComment}>
+          <CardActionArea>
+            <FormControl>
+              <InputLabel>Post your comment</InputLabel>
+              <Input
+                type="text"
+                onChange={this.handleChange}
+                id="comment"
+                value={this.state.comment}
+              />
+            </FormControl>
+          </CardActionArea>
+          <Button style={{ backgroundColor: '#fffffe' }} type="submit" variant="outlined" onSubmit={this.addComment}>
+            submit
         </Button>
-      </form>
+        </form>
+      </Card>
     );
   }
 }

@@ -64,7 +64,6 @@ export const postArticle = async (topic, newArticle) => {
     `${BASE_URL}/topics/${topic}/articles`,
     newArticle,
   );
-  console.log(data.article)
   return data.article;
 };
 
