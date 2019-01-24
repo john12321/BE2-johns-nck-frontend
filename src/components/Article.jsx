@@ -13,6 +13,9 @@ const styles = {
   card: {
     maxWidth: 3000,
     backgroundColor: '#fff',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
   },
   media: {
     height: 140,
@@ -145,14 +148,12 @@ class Article extends Component {
                   Comments: {comment_count}
                 </Typography>
               </CardContent>
-              <CardActions>
-                {user.username === author && (
-                  <Button size="small" type="submit" onClick={this.removeItem} variant="contained" color="secondary" >
-                    Delete
-        <DeleteIcon />
-                  </Button>)}
-              </CardActions>
             </CardActionArea>
+            {user.username === author && (
+              <Button size="small" type="submit" onClick={this.removeItem} variant="contained" color="secondary" style={{ display: 'flex', alignContent: 'center' }} >
+                Delete
+        <DeleteIcon />
+              </Button>)}
             <Vote votes={votes} article_id={article_id} />
           </Card>
           <br />
@@ -180,15 +181,13 @@ class Article extends Component {
                         Comment id: {comment_id}
                       </Typography>
                     </CardContent>
-                    <CardActions>
-                      {author === user.username && (
-                        <Button size="small" type="submit" onClick={() => this.removeItem(comment_id)} variant="contained" color="secondary" >
-                          Delete comment
-                      <DeleteIcon />
-                        </Button>)}
-                    </CardActions>
                     <br />
                   </CardActionArea>
+                  {author === user.username && (
+                    <Button size="small" type="submit" onClick={() => this.removeItem(comment_id)} variant="contained" color="secondary" >
+                      Delete comment
+                      <DeleteIcon />
+                    </Button>)}
                   <Vote votes={votes} article_id={article_id} comment_id={comment_id} />
                 </Card>
                 <br />
