@@ -61,21 +61,25 @@ class Nav extends React.Component {
     this.setState(state => ({ mobileOpen: !state.mobileOpen }));
   };
 
+  componentDidMount() {
+    this.props.fetchTopics();
+  }
+
   render() {
-    const { classes, theme, user, logoutLocalUser } = this.props;
+    const { classes, theme, user, logoutLocalUser, topics } = this.props;
 
     const drawer = (
       <>
         <div className={classes.toolbar} />
         <List >
-          {this.props.topics.map(({ slug }) => (
+          {topics.map(({ slug }) => (
             <ListItem button key={slug} component={Link} to={`/topics/${slug}`} style={{ textDecoration: 'none', backgroundColor: '#fff' }} onClick={() => this.handleDrawerToggle()}>
               <ListItemText primary={slug} />
             </ListItem>
           ))}
           <Divider />
           <Link to='/topic/add' style={{ textDecoration: 'none' }}>
-            <ListItem button style={{ backgroundColor: '#c00000' }}>
+            <ListItem button style={{ backgroundColor: '#c00000' }} onClick={() => this.handleDrawerToggle()}>
               <ListItemIcon><AddIcon /></ListItemIcon>
               <ListItemText primary={<Typography variant="h6" style={{ color: '#fff' }}>New Topic</Typography>} />
             </ListItem>
@@ -100,7 +104,7 @@ class Nav extends React.Component {
             >
               <MenuIcon />
             </IconButton>
-            <Link to={'/'} style={{ padding: 1 }}>
+            <Link to={'/'} style={{ padding: 1 }} onClick={() => this.handleDrawerToggle()}>
               <img className={classes.navLogo} src="https://northcoders.com/images/logos/learn_to_code_manchester_rw_original.png"
                 alt="Northcoders logo"></img>
             </Link>

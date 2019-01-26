@@ -64,7 +64,7 @@ class ArticlePost extends Component {
     const user_id = this.props.user.user_id;
     api.postArticle(topic, { title, body, user_id }).then(article => {
       // this.setState(() => ({ articlePosted: true }));
-      navigate(`/${article.topic}/${article.article_id}`);
+      navigate(`/${article.topic}/articles`);
     }).catch(() => {
       this.setState({ err: true })
     })

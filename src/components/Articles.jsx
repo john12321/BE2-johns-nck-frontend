@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import * as api from '../api';
 import ArticleCard from './ArticleCard';
-import { Button, FormControl, InputLabel, Select, MenuItem, FormGroup } from '@material-ui/core';
+import { Button, FormControl, InputLabel, Select, MenuItem, FormGroup, Card } from '@material-ui/core';
 import { Link } from '@reach/router';
 import throttle from 'lodash.throttle';
 import ArticlePost from './ArticlePost';
@@ -126,7 +126,9 @@ class Articles extends Component {
     else if (err) {
       return (
         <>
-          <p>No articles for this topic yet. Be the first!</p>
+          <Card>
+            <p>No articles for this topic yet. Be the first!</p>
+          </Card>
           <ArticlePost topics={this.props.topics} user={this.props.user} topic={this.props.topic} />
         </>
       )

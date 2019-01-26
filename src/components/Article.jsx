@@ -113,7 +113,6 @@ class Article extends Component {
       },
       isLoading, comments
     } = this.state;
-    console.log(comments)
     const { user, topic, classes } = this.props;
 
     const formattedDate = new Date(created_at).toString().slice(0, 16);
@@ -126,29 +125,27 @@ class Article extends Component {
       return (
         <>
           <Card className={classes.card} >
-            <CardActionArea>
-              <CardHeader subheader={author}>
-              </CardHeader>
-              <CardContent>
-                <Typography gutterBottom variant="h5" component="h2">
-                  {title}
-                </Typography>
-                <Typography variant="overline" style={{ color: '#6a00b7' }} >
-                  {topic}
-                </Typography>
-                <Typography>
-                  {formattedDate}
-                </Typography>
-                <br />
-                <Typography>
-                  {body}
-                </Typography>
-                <br />
-                <Typography>
-                  Comments: {comment_count}
-                </Typography>
-              </CardContent>
-            </CardActionArea>
+            <CardHeader subheader={author}>
+            </CardHeader>
+            <CardContent>
+              <Typography gutterBottom variant="h5" component="h2">
+                {title}
+              </Typography>
+              <Typography variant="overline" style={{ color: '#6a00b7' }} >
+                {topic}
+              </Typography>
+              <Typography>
+                {formattedDate}
+              </Typography>
+              <br />
+              <Typography>
+                {body}
+              </Typography>
+              <br />
+              <Typography>
+                Comments: {comment_count}
+              </Typography>
+            </CardContent>
             {user.username === author && (
               <Button size="small" type="submit" onClick={this.removeItem} variant="contained" color="secondary" style={{ display: 'flex', alignContent: 'center' }} >
                 Delete
@@ -160,7 +157,7 @@ class Article extends Component {
 
           <CommentPost addComment={this.addComment} user={user} />
 
-          {comments.map(({ body, comment_id, created_at, author, votes }) => {
+          {comments && comments.map(({ body, comment_id, created_at, author, votes }) => {
             return (
               <div key={comment_id}>
                 <br />

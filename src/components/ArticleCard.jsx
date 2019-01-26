@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Card, CardHeader, CardContent, CardActionArea, Typography, withStyles } from '@material-ui/core';
-import { Link } from '@reach/router';
+import { Link, navigate } from '@reach/router';
 import Vote from './Vote';
 import PropTypes from 'prop-types';
 
@@ -33,20 +33,21 @@ class ArticleCard extends Component {
     const formattedDate = new Date(created_at).toString().slice(0, 16);
 
 
+
     return (
       <>
         <br />
         <Card className={classes.card}>
-          <CardActionArea>
+          <CardActionArea onClick={() => navigate(`/${topic}/${article_id}`)}>
             <CardHeader subheader={author}>
             </CardHeader>
             <CardContent >
               <Typography gutterBottom variant="h5" component="h2">
-                <Link to={`/${topic}/${article_id}`}>{title}</Link>
+                {title}
               </Typography>
               <Typography variant="overline" style={{ color: '#6a00b7' }} >
                 {topic}
-              </Typography> 
+              </Typography>
               <Typography>
                 {formattedDate}
               </Typography>

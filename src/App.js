@@ -67,11 +67,11 @@ class App extends Component {
     return (
       <div className="App">
         <Auth user={user} login={this.login}>
-          <Nav topics={topics} logoutLocalUser={this.logoutLocalUser} />
+          <Nav topics={topics} logoutLocalUser={this.logoutLocalUser} fetchTopics={this.fetchTopics} />
           <Router className="articles">
             <Articles path="/" topics={topics} user={user} />
             <Articles path="/topics/:topic" topics={topics} user={user} />
-            <TopicPost user={user} path="topic/add" topics={topics} />
+            <TopicPost user={user} path="topic/add" topics={topics} addNewTopic={this.addNewTopic} />
             <Articles user={user} path="article/add" topics={topics} />
             <Article path="/:topic/:article_id" topics={topics} user={user} removeItem={this.removeItem} />
             <Errors default />

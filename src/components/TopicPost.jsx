@@ -42,29 +42,37 @@ const styles = theme => ({
 
 class TopicPost extends Component {
   state = {
-    topic: {},
-    err: false
+    slug: '',
+    description: '',
+    err: false,
   };
 
 
+
+  handleChange = ({ target: { value, id } }) => {
+    this.setState({ [id]: value });
+  };
+
   handleSubmit = event => {
     event.preventDefault();
-    const slug = event.target.slug.value;
-    const description = event.target.description.value;
-    api.postTopic(slug, description)
+    const { slug, description } = this.state;
+    api
+      .postTopic(slug, description)
       .then(topic => {
-        this.setState(() => ({ topic, topicPosted: true }));
-        // this.props.fetchTopics();
         navigate(`/topics/${topic.slug}`)
-          .catch(() => {
-            this.setState({ err: true })
-          })
+        this.props.addNewTopic(topic);
+        this.setState({ slug: "", description: "" });
+
+
+      })
+      .catch((error) => {
+        this.setState({ err: true });
       });
   };
 
   render() {
     const { classes, user } = this.props;
-    const { err } = this.state;
+    const { err, slug, description } = this.state;
     return (
       <main className={this.props.classes.main} >
         <CssBaseline />
@@ -78,22 +86,23 @@ class TopicPost extends Component {
           <form className={classes.form} onSubmit={this.handleSubmit}>
             <FormControl margin="normal" required fullWidth>
               <InputLabel htmlFor='slug'>Topic:</InputLabel>
-              <Input type='text' id='slug' required />
+              <Input type='text' id='slug' value={slug} required onChange={this.handleChange} />
               <FormControl>
                 <InputLabel htmlFor='description'>Description:</InputLabel>
-                <Input type='text' id='description' required />
+                <Input type='text' id='description' value={description} required onChange={this.handleChange} />
               </FormControl>
               <Button type='submit' variant="outlined" onSubmit={this.handleSubmit} >Post Topic</Button>
             </FormControl>
           </form>
           {err && (
-            <section>
-              <p>Oops! Something went wrong. Please try again.</p>
-            </section>
+            <Typography style={{ color: 'red' }}>
+              Oops! Something went wrong. Does the topic already exist?
+            </Typography>
           )}
         </Paper>
       </main>
     )
   }
+
 }
 export default withStyles(styles)(TopicPost);
