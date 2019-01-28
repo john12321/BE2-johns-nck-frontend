@@ -67,7 +67,7 @@ class App extends Component {
     return (
       <div className="App">
         <Auth user={user} login={this.login}>
-          <Nav topics={topics} logoutLocalUser={this.logoutLocalUser} fetchTopics={this.fetchTopics} />
+          <Nav topics={topics} logoutLocalUser={this.logoutLocalUser} fetchTopics={this.fetchTopics} user={user} />
           <Router className="articles">
             <Articles path="/" topics={topics} user={user} />
             <Articles path="/topics/:topic" topics={topics} user={user} />

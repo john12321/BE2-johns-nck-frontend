@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import * as api from '../api';
 import ArticleCard from './ArticleCard';
-import { FormControl, FormGroup, Card } from '@material-ui/core';
+import { FormControl, FormGroup, Card, Typography } from '@material-ui/core';
 import { Link } from '@reach/router';
 import throttle from 'lodash.throttle';
 import ArticlePost from './ArticlePost';
@@ -34,12 +34,16 @@ class Articles extends Component {
   componentDidUpdate(prevProps, prevState) {
     const { atEnd, sortBy, sortAsc } = this.state;
     const { topic } = this.props;
-    if (topic !== prevProps.topic) {
+    if (sortBy !== prevState.sortBy) {
+      this.fetchArticles();
+      window.scrollTo(0, 0);
+    }
+    else if (topic !== prevProps.topic) {
       this.setState({ page: 1, articles: [], err: false });
       this.fetchArticles();
       window.scrollTo(0, 0)
     }
-    if (this.state.page !== prevState.page) {
+    else if (this.state.page !== prevState.page) {
       if (!atEnd) {
         this.fetchArticles();
         // window.scrollTo(0, 0)
@@ -142,7 +146,7 @@ class Articles extends Component {
       return (
         <>
           <Card>
-            <p>No articles for this topic yet. Be the first!</p>
+            <Typography>No articles for this topic yet. Be the first!</Typography>>
           </Card>
           <ArticlePost topics={this.props.topics} user={this.props.user} topic={this.props.topic} />
         </>
@@ -150,7 +154,7 @@ class Articles extends Component {
     }
     else return (
       <>
-        <Card style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', transparency: 0.5 }}>
+        <Card style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           <FormGroup style={{ paddingTop: 60 }} row>
             <FormControl>
               <Dropdown
