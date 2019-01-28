@@ -7,6 +7,8 @@ import throttle from 'lodash.throttle';
 import ArticlePost from './ArticlePost';
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
+import Loader from 'react-loader-spinner';
+import { blue } from '@material-ui/core/colors';
 
 
 class Articles extends Component {
@@ -19,12 +21,13 @@ class Articles extends Component {
     atEnd: false,
     sortBy: 'created_at',
     sortAsc: false,
-
+    users: [],
   }
 
   componentDidMount() {
     this.fetchArticles();
-    window.scrollTo(0, 0)
+    this.fetchUsers();
+    window.scrollTo(0, 0);
     window.addEventListener('scroll', this.throttleScroll);
   }
 
@@ -32,21 +35,21 @@ class Articles extends Component {
     const { atEnd, sortBy, sortAsc } = this.state;
     const { topic } = this.props;
     if (topic !== prevProps.topic) {
-      this.setState(() => ({ page: 1, err: false }));
+      this.setState({ page: 1, articles: [], err: false });
       this.fetchArticles();
       window.scrollTo(0, 0)
     }
     if (this.state.page !== prevState.page) {
       if (!atEnd) {
         this.fetchArticles();
-        window.scrollTo(0, 0)
+        // window.scrollTo(0, 0)
       }
     }
   }
 
   componentWillUnmount() {
     window.removeEventListener('scroll', this.throttleScroll);
-    this.setState((state) => ({ page: 1 })
+    this.setState(({ page: 1, articles: [] })
     )
   };
 
@@ -74,7 +77,7 @@ class Articles extends Component {
             };
           }
         });
-        if (articles.length < 10) {
+        if (articles.length < 5) {
           this.setState({ atEnd: true })
         }
       })
@@ -83,6 +86,15 @@ class Articles extends Component {
         this.setState({ err: true, articles: [] })
       })
   }
+
+  fetchUsers = () => {
+    api
+      .getUsers()
+      .then(users => {
+        this.setState({ users })
+        console.log(users);
+      });
+  };
 
   handleScroll = () => {
     const scrolledHeight = window.scrollY + window.innerHeight;
@@ -98,7 +110,7 @@ class Articles extends Component {
 
 
   render() {
-    const { articles, atEnd, err, sortBy } = this.state;
+    const { articles, atEnd, err, sortBy, isLoading } = this.state;
     const { topics } = this.props;
     let cardContent = null;
 
@@ -109,17 +121,20 @@ class Articles extends Component {
             <div
               key={article.article_id}
             >
-              <ArticleCard article={article} user={this.props.user} fetchArticles={this.fetchArticles} />
+              <ArticleCard article={article} user={this.props.user} fetchArticles={this.fetchArticles} users={this.state.users} />
             </div>
           )
         })}
       </div>)
-
-    if (atEnd) {
+    if (isLoading) {
+      return (
+        <Loader type="ThreeDots" color="white" height={200} width={200} />
+      )
+    } else if (atEnd) {
       return (
         <>
           {cardContent}
-          <ArticlePost topics={topics} user={this.props.user} topic={this.props.topic} sortBy={sortBy} />
+          <ArticlePost topics={topics} user={this.props.user} sortBy={sortBy} />
         </>
       )
     }
@@ -135,22 +150,24 @@ class Articles extends Component {
     }
     else return (
       <>
-        <FormGroup style={{ paddingTop: 30 }} row>
-          <FormControl>
-            <Dropdown
-              options={[
-                { value: "created_at", label: "Latest" },
-                { value: "comment_count", label: "Most discussed" },
-                { value: "votes", label: "Most popular" },
-              ]}
-              onChange={this.handleChange}
-            />
-          </FormControl>
-          <FormControl>
-            {/* <Sort /> */}
-          </FormControl>
-        </FormGroup>
-        {cardContent}
+        <Card style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', transparency: 0.5 }}>
+          <FormGroup style={{ paddingTop: 60 }} row>
+            <FormControl>
+              <Dropdown
+                options={[
+                  { value: "created_at", label: "Latest" },
+                  { value: "comment_count", label: "Most discussed" },
+                  { value: "votes", label: "Most popular" },
+                ]}
+                onChange={this.handleChange}
+              />
+            </FormControl>
+            <FormControl>
+              {/* <Sort /> */}
+            </FormControl>
+          </FormGroup>
+          {cardContent}
+        </Card>
       </>
     )
   }

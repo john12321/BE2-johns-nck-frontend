@@ -79,7 +79,7 @@ class Nav extends React.Component {
           ))}
           <Divider />
           <Link to='/topic/add' style={{ textDecoration: 'none' }}>
-            <ListItem button style={{ backgroundColor: '#c00000' }} onClick={() => this.handleDrawerToggle()}>
+            <ListItem button style={{ backgroundColor: '#72BCD4' }} onClick={() => this.handleDrawerToggle()}>
               <ListItemIcon><AddIcon /></ListItemIcon>
               <ListItemText primary={<Typography variant="h6" style={{ color: '#fff' }}>New Topic</Typography>} />
             </ListItem>
@@ -93,7 +93,7 @@ class Nav extends React.Component {
     return (
       <div className={classes.root}>
         <CssBaseline />
-        <AppBar position="fixed" className={classes.appBar} style={{ backgroundColor: '#fffeee' }}>
+        <AppBar position="fixed" className={classes.appBar} style={{ backgroundColor: '#72BCD4' }}>
           <Toolbar>
             <IconButton
               color="secondary"

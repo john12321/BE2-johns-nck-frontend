@@ -34,16 +34,11 @@ const styles = theme => ({
   submit: {
     marginTop: theme.spacing.unit * 3,
   },
-  // textField: {
-  //   marginLeft: theme.spacing.unit,
-  //   marginRight: theme.spacing.unit,
-  // },
 });
 
 
 class ArticlePost extends Component {
   state = {
-    // articlePosted: false,
     title: '',
     body: '',
     topic: '',
@@ -59,12 +54,15 @@ class ArticlePost extends Component {
   };
 
   handleSubmit = event => {
-    event.preventDefault();
     const { title, body, topic } = this.state;
-    const user_id = this.props.user.user_id;
-    api.postArticle(topic, { title, body, user_id }).then(article => {
-      // this.setState(() => ({ articlePosted: true }));
-      navigate(`/${article.topic}/articles`);
+    const { user } = this.props
+    const user_id = user.user_id;
+    event.preventDefault();
+    console.log(title, body, user_id, topic)
+    api.postArticle({ title, body, user_id }, topic).then(article => {
+      console.log(article)
+      this.setState({ title: '', body: '' });
+      navigate(`/${article.topic}/${article.article_id}`);
     }).catch(() => {
       this.setState({ err: true })
     })
@@ -79,22 +77,30 @@ class ArticlePost extends Component {
       <main className={this.props.classes.main} >
         <CssBaseline />
         <Paper className={classes.paper}>
-          <Avatar className={classes.avatar}>
-            {user.avatar}
+          <Avatar className={classes.avatar} style={{ height: 40, width: 40, color: '#72BCD4' }}>
+            {user.name}
           </Avatar>
           <Typography component="h1" variant="h5">
             Post a new article
         </Typography>
           <form className={classes.form} onSubmit={this.handleSubmit}>
-            <FormControl margin="normal" required fullWidth>
+            <FormControl margin="normal" fullWidth>
               <InputLabel htmlFor="title">Article Title</InputLabel>
-              <Input id="title" value={title} name="title" autoComplete="title" autoFocus onChange={this.handleChange} required />
+              <Input
+                id="title"
+                value={title || ''}
+                name="title"
+                autoComplete="title"
+                autoFocus
+                onChange={this.handleChange}
+                required
+              />
             </FormControl>
             <TextField
               onChange={this.handleChange}
               required
               fullWidth
-              value={body}
+              value={body || ''}
               name="body"
               id="outlined-required"
               label="Content"
@@ -103,7 +109,7 @@ class ArticlePost extends Component {
               variant="outlined"
             />
             <InputLabel htmlFor="topic">Topic{' '}</InputLabel>
-            <Select name="topic" id='topic' value={topic} onChange={this.handleChange} required>
+            <Select name="topic" id='topic' value={topic} onChange={this.handleChange} >
               {topics.map(topic => {
                 return (
                   <MenuItem key={topic.slug} value={topic.slug}>

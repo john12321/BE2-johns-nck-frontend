@@ -73,7 +73,7 @@ class App extends Component {
             <Articles path="/topics/:topic" topics={topics} user={user} />
             <TopicPost user={user} path="topic/add" topics={topics} addNewTopic={this.addNewTopic} />
             <Articles user={user} path="article/add" topics={topics} />
-            <Article path="/:topic/:article_id" topics={topics} user={user} removeItem={this.removeItem} />
+            <Article path="/:topic/:article_id" topics={topics} user={user} />
             <Errors default />
           </Router>
           <Footer />
