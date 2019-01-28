@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import * as api from '../api';
-import { Avatar, Input, InputLabel, Button, Card, CardHeader, CardContent, Typography, CssBaseline, FormControl, FormControlLabel, Checkbox, Paper, withStyles, TextField, MenuItem, Select } from '@material-ui/core';
+import { Avatar, Input, InputLabel, Button, Typography, CssBaseline, FormControl, Paper, withStyles } from '@material-ui/core';
 import { navigate } from '@reach/router';
 
 const styles = theme => ({

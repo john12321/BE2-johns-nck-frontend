@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Card, CardHeader, CardContent, CardActionArea, Typography, withStyles } from '@material-ui/core';
-import { Link, navigate } from '@reach/router';
+import { navigate } from '@reach/router';
 import Vote from './Vote';
 import PropTypes from 'prop-types';
 
