@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Card, InputLabel, Input, FormControl, CardActionArea, CardActions } from '@material-ui/core';
+import { Button, Card, InputLabel, Input, FormControl, CardActionArea } from '@material-ui/core';
 class CommentPost extends Component {
   state = {
     comment: ''

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import * as api from '../api';
-import { Avatar, Input, InputLabel, Button, Card, CardHeader, Typography, CssBaseline, FormControl, FormControlLabel, Checkbox, Paper, withStyles } from '@material-ui/core';
+import { Avatar, Input, InputLabel, Button, Typography, CssBaseline, FormControl, Paper, withStyles } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import PropTypes from 'prop-types';
 

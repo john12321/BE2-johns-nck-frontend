@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import * as api from "../api";
 import { navigate } from '@reach/router';
 import Vote from "./Vote";
-import { Card, CardHeader, CardContent, Typography, Button, CardActionArea, CardActions, withStyles } from '@material-ui/core';
+import { Card, CardHeader, CardContent, Typography, Button, CardActionArea, withStyles } from '@material-ui/core';
 import moment from 'moment';
 import DeleteIcon from '@material-ui/icons/Delete';
 import CommentPost from './CommentPost';
@@ -116,7 +116,7 @@ class Article extends Component {
       body,
       comment_count,
       article_id
-    }, isLoading, comments, page } = this.state;
+    }, isLoading, comments } = this.state;
     const { user, topic, classes } = this.props;
 
     const formattedDate = new Date(created_at).toString().slice(0, 16);

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import * as api from '../api';
 import ArticleCard from './ArticleCard';
-import { Button, FormControl, InputLabel, Select, MenuItem, FormGroup, Card } from '@material-ui/core';
+import { FormControl, FormGroup, Card } from '@material-ui/core';
 import { Link } from '@reach/router';
 import throttle from 'lodash.throttle';
 import ArticlePost from './ArticlePost';
@@ -121,7 +121,7 @@ class Articles extends Component {
             <div
               key={article.article_id}
             >
-              <ArticleCard article={article} user={this.props.user} fetchArticles={this.fetchArticles} users={this.state.users} />
+              <ArticleCard article={article} user={this.props.user} fetchArticles={this.fetchArticles} />
             </div>
           )
         })}

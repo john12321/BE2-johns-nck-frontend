@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { Card, CardHeader, CardContent, CardActionArea, Typography, withStyles, Icon, Avatar } from '@material-ui/core';
-import { Link, navigate } from '@reach/router';
+import { Card, CardHeader, CardContent, CardActionArea, Typography, withStyles, Avatar } from '@material-ui/core';
+import { navigate } from '@reach/router';
 import Vote from './Vote';
 import PropTypes from 'prop-types';
-import moment from 'moment';
 import 'typeface-roboto';
 
 const styles = theme => ({
@@ -29,33 +28,17 @@ const styles = theme => ({
 
 class ArticleCard extends Component {
 
-  // checkAuthor = (author) => {
-  //   this.props.users.map(element => {
-  //     console.log(element.name)
-  //     if (element.name === author) {
-  //       return (
-  //         <Icon>
-  //           <img styles={{ height: 10, width: 10 }} src={element.avatar_url}
-  //             alt=""></img>
-  //         </Icon>
-  //       )
-  //     }
-  //   })
-  // }
 
   render() {
-    const { article, classes, users } = this.props;
+    const { article, classes } = this.props;
     const {
       article_id,
       title,
-      body,
       votes,
       created_at,
       topic,
       author,
-      name,
       avatar_url,
-      user_id,
       comment_count,
     } = article;
 
