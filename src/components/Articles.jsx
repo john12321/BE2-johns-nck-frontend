@@ -154,7 +154,7 @@ class Articles extends Component {
     }
     else return (
       <>
-        <Card style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <Card style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', opacity: '0.9', backgroundColor: '#72BCD4' }}>
           <FormGroup style={{ paddingTop: 60 }} row>
             <FormControl>
               <Dropdown
