@@ -66,7 +66,7 @@ class Nav extends React.Component {
   }
 
   render() {
-    const { classes, theme, logoutLocalUser, topics } = this.props;
+    const { classes, theme, logoutLocalUser, topics, user } = this.props;
 
     const drawer = (
       <>

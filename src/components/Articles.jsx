@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import * as api from '../api';
 import ArticleCard from './ArticleCard';
-import { FormControl, FormGroup, Card } from '@material-ui/core';
+import { FormControl, FormGroup, Card, Typography } from '@material-ui/core';
 import throttle from 'lodash.throttle';
 import ArticlePost from './ArticlePost';
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
 import Loader from 'react-loader-spinner';
-import { blue } from '@material-ui/core/colors';
+
 
 
 class Articles extends Component {
