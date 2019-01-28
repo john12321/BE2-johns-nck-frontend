@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from '@reach/router';
 
-import { AppBar, Button, CssBaseline, Divider, Drawer, Hidden, IconButton, List, ListItem, ListItemIcon, ListItemText, Toolbar, Typography, withStyles } from '@material-ui/core';
+import { AppBar, Button, CssBaseline, Divider, Drawer, Hidden, IconButton, List, ListItem, ListItemIcon, ListItemText, Toolbar, Typography, withStyles, Tooltip } from '@material-ui/core';
 
 import MenuIcon from '@material-ui/icons/Menu';
 import AddIcon from '@material-ui/icons/Add';
@@ -79,7 +79,7 @@ class Nav extends React.Component {
           ))}
           <Divider />
           <Link to='/topic/add' style={{ textDecoration: 'none' }}>
-            <ListItem button style={{ backgroundColor: '#c00000' }} onClick={() => this.handleDrawerToggle()}>
+            <ListItem button style={{ backgroundColor: '#72BCD4' }} onClick={() => this.handleDrawerToggle()}>
               <ListItemIcon><AddIcon /></ListItemIcon>
               <ListItemText primary={<Typography variant="h6" style={{ color: '#fff' }}>New Topic</Typography>} />
             </ListItem>
@@ -93,7 +93,7 @@ class Nav extends React.Component {
     return (
       <div className={classes.root}>
         <CssBaseline />
-        <AppBar position="fixed" className={classes.appBar} style={{ backgroundColor: '#fffeee' }}>
+        <AppBar position="fixed" className={classes.appBar} style={{ backgroundColor: '#72BCD4' }}>
           <Toolbar>
             <IconButton
               color="secondary"
@@ -108,9 +108,11 @@ class Nav extends React.Component {
               <img className={classes.navLogo} src="https://northcoders.com/images/logos/learn_to_code_manchester_rw_original.png"
                 alt="Northcoders logo"></img>
             </Link>
-            <Button type="submit" onClick={logoutLocalUser} variant="outlined" color="secondary" style={{ flex: 1, marginLeft: 60 }}>
-              Log out
+            <Tooltip title={`Logged in as ${user.username}`}>
+              <Button type="submit" onClick={logoutLocalUser} variant="outlined" color="secondary" style={{ flex: 1, marginLeft: 60 }}>
+                Log out
             </Button>
+            </Tooltip>
           </Toolbar>
         </AppBar>
         <nav className={classes.drawer}>

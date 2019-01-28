@@ -15,8 +15,7 @@ class CommentPost extends Component {
   addComment = (event) => {
     event.preventDefault()
     const { comment } = this.state
-    const { user } = this.props
-    this.props.addComment(user.user_id, comment)
+    this.props.addComment(comment)
     this.setState({
       comment: ''
     })
@@ -24,7 +23,7 @@ class CommentPost extends Component {
 
   render() {
     return (
-      <Card style={{ backgroundColor: '#c00000', padding: 4 }}>
+      <Card style={{ backgroundColor: '#72BCD4', padding: 4, borderRadius: 25 }}>
         <form onSubmit={this.addComment}>
           <CardActionArea>
             <FormControl>

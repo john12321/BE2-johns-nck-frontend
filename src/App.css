@@ -66,7 +66,9 @@
 
 
 .cardContent{
-  padding: 5% 5% 5% 5%;  
+  padding: 5% 5% 5% 5%;
+  background-color: #72BCD4; 
+  opacity: 0.9; 
 }
 
 
@@ -81,5 +83,5 @@
 /* ---------------------footer component -----------------  */
 .footer {
   grid-area: footer;
-  background-color:#c00000;
+  background-color:#72BCD4;
 }

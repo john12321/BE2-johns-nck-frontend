@@ -8,6 +8,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import CommentPost from './CommentPost';
 import throttle from 'lodash.throttle';
 import PropTypes from 'prop-types';
+import Loader from 'react-loader-spinner';
 
 const styles = {
   card: {
@@ -16,6 +17,7 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    borderRadius: 25,
   },
   media: {
     height: 140,
@@ -24,10 +26,11 @@ const styles = {
 
 class Article extends Component {
   state = {
-    thisArticle: {},
+    article: {},
     isLoading: true,
     comments: [],
     page: 1,
+    err: false,
   }
 
   componentDidMount() {
@@ -40,7 +43,7 @@ class Article extends Component {
     const { article_id } = this.props;
     if (article_id !== prevProps.article_id) {
       this.fetchArticle()
-      this.setState({ page: 1 }, this.fetchComments)
+      this.setState({ page: 1, comments: [] }, this.fetchComments)
       window.addEventListener('scroll', this.throttledScroll)
     }
   }
@@ -49,7 +52,11 @@ class Article extends Component {
     api
       .getArticle(this.props.article_id)
       .then(article => {
-        this.setState({ thisArticle: article });
+        this.setState({ article });
+      })
+      .then(() => this.setState({ isLoading: false }))
+      .catch((err) => {
+        this.setState({ err: true })
       })
   }
 
@@ -60,7 +67,7 @@ class Article extends Component {
       this.setState((state) => {
         return { comments: [...state.comments, ...comments], isLoading: false }
       })
-      if (comments.length < 10) {
+      if (comments.length < 5) {
         window.removeEventListener('scroll', this.throttledScroll)
       }
     }).catch(() => {
@@ -101,25 +108,22 @@ class Article extends Component {
   throttledScroll = throttle(this.handleScroll, 2000);
 
   render() {
-    const {
-      thisArticle: {
-        title,
-        votes,
-        author,
-        created_at,
-        body,
-        comment_count,
-        article_id
-      },
-      isLoading, comments
-    } = this.state;
+    const { article: {
+      title,
+      votes,
+      author,
+      created_at,
+      body,
+      comment_count,
+      article_id
+    }, isLoading, comments } = this.state;
     const { user, topic, classes } = this.props;
 
     const formattedDate = new Date(created_at).toString().slice(0, 16);
 
     if (isLoading) {
       return (
-        <div>Loading...</div>
+        <Loader type="ThreeDots" color="white" height={200} width={200} />
       )
     } else if (article_id) {
       return (
@@ -157,7 +161,7 @@ class Article extends Component {
 
           <CommentPost addComment={this.addComment} user={user} />
 
-          {comments && comments.map(({ body, comment_id, created_at, author, votes }) => {
+          {(comments.length > 0) && comments.map(({ body, comment_id, created_at, author, votes }) => {
             return (
               <div key={comment_id}>
                 <br />

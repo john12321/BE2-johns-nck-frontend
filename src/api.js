@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-const BASE_URL = "https://nc-knews-example-fixed.herokuapp.com/api";
-// const BASE_URL = "https://johns-ncknews.herokuapp.com/api";
+// const BASE_URL = "https://nc-knews-example-fixed.herokuapp.com/api";
+const BASE_URL = "https://johns-ncknews.herokuapp.com/api";
 
 
 export const getUser = async (username) => {
@@ -38,17 +38,20 @@ export const getArticle = async (article_id) => {
   return data.article;
 }
 
-export const getComments = async (article_id, page) => {
+export const getComments = async (article_id, page, sortAsc = false) => {
   const { data } = await axios.get(
-    `${BASE_URL}/articles/${article_id}/comments?p=${page}`
+    `${BASE_URL}/articles/${article_id}/comments?p=${page}&sort_asc=${sortAsc}`
   );
   return data.comments;
 };
 
-export const postComment = async (article_id, body, user_id) => {
+export const postComment = async (article_id, user_id, body) => {
   const { data } = await axios.post(
     `${BASE_URL}/articles/${article_id}/comments`,
-    { user_id, body }
+    {
+      user_id,
+      body
+    }
   );
   return data.comment;
 };
@@ -62,7 +65,7 @@ export const updateVotes = async (article_id, voteInc, comment_id) => {
   });
 };
 
-export const postArticle = async (topic, newArticle) => {
+export const postArticle = async (newArticle, topic) => {
   const { data } = await axios.post(
     `${BASE_URL}/topics/${topic}/articles`,
     newArticle,
@@ -70,8 +73,8 @@ export const postArticle = async (topic, newArticle) => {
   return data.article;
 };
 
-export const deleteItem = async (article_id, comment_id) => {
-  const URL = comment_id
+export const deleteItem = async (article_id, comment_id = null) => {
+  const URL = (comment_id !== null)
     ? `${BASE_URL}/articles/${article_id}/comments/${comment_id}`
     : `${BASE_URL}/articles/${article_id}`;
   await axios.delete(URL);
