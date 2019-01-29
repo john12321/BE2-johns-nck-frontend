@@ -7,6 +7,7 @@ import ArticlePost from './ArticlePost';
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
 import Loader from 'react-loader-spinner';
+import lodash from 'lodash';
 
 
 
@@ -74,8 +75,9 @@ class Articles extends Component {
           if (page === 1) {
             return { articles, isLoading: false };
           } else {
+            const newArticles = lodash.uniqBy([...prevState.articles, ...articles], 'article_id');
             return {
-              articles: [...prevState.articles, ...articles],
+              articles: newArticles,
               isLoading: false
             };
           }

@@ -75,9 +75,9 @@ class Article extends Component {
     })
   }
 
-  removeItem = () => {
+  removeItem = (comment_id) => {
     api
-      .deleteItem(this.props.article_id)
+      .deleteItem(this.props.article_id, comment_id)
       .then(() => {
         navigate('/')
       });
@@ -121,11 +121,11 @@ class Article extends Component {
 
     const formattedDate = new Date(created_at).toString().slice(0, 16);
 
-    if (isLoading) {
+    if (isLoading || !article_id) {
       return (
         <Loader type="ThreeDots" color="white" height={200} width={200} />
       )
-    } else if (article_id) {
+    } else {
       return (
         <>
           <Card className={classes.card} >
