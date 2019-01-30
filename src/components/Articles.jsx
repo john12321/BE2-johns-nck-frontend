@@ -8,6 +8,7 @@ import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
 import Loader from 'react-loader-spinner';
 import lodash from 'lodash';
+import PropTypes from 'prop-types';
 
 
 
@@ -19,14 +20,14 @@ class Articles extends Component {
     page: 1,
     err: false,
     atEnd: false,
-    sortBy: 'created_at',
+    sortBy: '',
     sortAsc: false,
-    users: [],
+    // users: [],
   }
 
   componentDidMount() {
     this.fetchArticles();
-    this.fetchUsers();
+    // this.fetchUsers();
     window.scrollTo(0, 0);
     window.addEventListener('scroll', this.throttleScroll);
   }
@@ -35,19 +36,12 @@ class Articles extends Component {
     const { atEnd, sortBy, sortAsc } = this.state;
     const { topic } = this.props;
     if (sortBy !== prevState.sortBy) {
-      this.fetchArticles();
+      this.setState({ articles: [], err: false }, this.fetchArticles)
       window.scrollTo(0, 0);
     }
     else if (topic !== prevProps.topic) {
-      this.setState({ page: 1, articles: [], err: false });
-      this.fetchArticles();
+      this.setState({ page: 1, articles: [], err: false }, this.fetchArticles);
       window.scrollTo(0, 0)
-    }
-    else if (this.state.page !== prevState.page) {
-      if (!atEnd) {
-        this.fetchArticles();
-        // window.scrollTo(0, 0)
-      }
     }
   }
 
@@ -62,7 +56,7 @@ class Articles extends Component {
     const { value } = event;
     this.setState({
       sortBy: value
-    }, () => this.fetchArticles())
+    }, this.fetchArticles)
   }
 
   fetchArticles() {
@@ -88,18 +82,17 @@ class Articles extends Component {
       })
       .catch(() => {
         window.removeEventListener('scroll', this.throttleScroll);
-        this.setState({ err: true, articles: [] })
+        this.setState({ err: true, atEnd: true, articles: [] })
       })
   }
 
-  fetchUsers = () => {
-    api
-      .getUsers()
-      .then(users => {
-        this.setState({ users })
-        console.log(users);
-      });
-  };
+  // fetchUsers = () => {
+  //   api
+  //     .getUsers()
+  //     .then(users => {
+  //       this.setState({ users })
+  //     });
+  // };
 
   handleScroll = () => {
     const scrolledHeight = window.scrollY + window.innerHeight;
@@ -107,7 +100,7 @@ class Articles extends Component {
     if (scrolledHeight >= bottom) {
       this.setState((state) => {
         return { page: state.page + 1 }
-      })
+      }, this.fetchArticles)
     }
   };
 
@@ -126,7 +119,7 @@ class Articles extends Component {
             <div
               key={article.article_id}
             >
-              <ArticleCard article={article} user={this.props.user} fetchArticles={this.fetchArticles} />
+              <ArticleCard article={article} fetchArticles={this.fetchArticles} />
             </div>
           )
         })}
@@ -142,18 +135,14 @@ class Articles extends Component {
           <ArticlePost topics={topics} user={this.props.user} sortBy={sortBy} />
         </>
       )
-    }
-    else if (err) {
+    } else if (err) {
       return (
         <>
-          <Card>
-            <Typography>No articles for this topic yet. Be the first!</Typography>>
-          </Card>
+          <Typography>No articles for this topic yet. Be the first!</Typography>
           <ArticlePost topics={this.props.topics} user={this.props.user} topic={this.props.topic} />
         </>
       )
-    }
-    else return (
+    } else return (
       <>
         <Card style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', opacity: '0.9', backgroundColor: '#72BCD4' }}>
           <FormGroup style={{ paddingTop: 60 }} row>
@@ -178,5 +167,8 @@ class Articles extends Component {
   }
 }
 
+Articles.propTypes = {
+  topics: PropTypes.array
+};
 
 export default Articles;

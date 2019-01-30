@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import moment from 'moment';
 import { Card, CardHeader, CardContent, CardActionArea, Typography, withStyles, Avatar } from '@material-ui/core';
 import { navigate } from '@reach/router';
 import Vote from './Vote';
@@ -44,8 +44,6 @@ class ArticleCard extends Component {
     } = article;
 
 
-    const formattedDate = new Date(created_at).toString().slice(0, 16);
-
     return (
       <>
         <br />
@@ -64,7 +62,7 @@ class ArticleCard extends Component {
                 {topic}
               </Typography>
               <Typography variant="h6" style={{ color: '#72BCD4' }}>
-                {formattedDate}
+                {`Posted: ${moment(created_at).startOf('second').fromNow()}`}
               </Typography>
               <br />
               <Typography >
@@ -82,6 +80,9 @@ class ArticleCard extends Component {
 
 ArticleCard.propTypes = {
   classes: PropTypes.object.isRequired,
+  article: PropTypes.object,
+  fetchArticles: PropTypes.func,
+
 };
 
 export default withStyles(styles)(ArticleCard);

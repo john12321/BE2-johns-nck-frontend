@@ -119,8 +119,6 @@ class Article extends Component {
     }, isLoading, comments } = this.state;
     const { user, topic, classes } = this.props;
 
-    const formattedDate = new Date(created_at).toString().slice(0, 16);
-
     if (isLoading || !article_id) {
       return (
         <Loader type="ThreeDots" color="white" height={200} width={200} />
@@ -139,7 +137,7 @@ class Article extends Component {
                 {topic}
               </Typography>
               <Typography>
-                {formattedDate}
+                {`Posted: ${moment(created_at).startOf('second').fromNow()}`}
               </Typography>
               <br />
               <Typography>
@@ -169,7 +167,7 @@ class Article extends Component {
                   <CardActionArea>
                     <Typography gutterBottom variant="h5" component="h2">
                       {/* Comment added {formattedDate} */}
-                      Comment submitted: {moment(created_at).startOf('day').fromNow()}
+                      {`Comment posted: ${moment(created_at).startOf('second').fromNow()}`}
                     </Typography>
                     <CardHeader subheader={author}>
                     </CardHeader>

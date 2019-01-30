@@ -132,4 +132,9 @@ class ArticlePost extends Component {
   }
 }
 
+ArticlePost.propTypes = {
+  classes: PropTypes.object.isRequired,
+  topics: PropTypes.array,
+};
+
 export default withStyles(styles)(ArticlePost);
