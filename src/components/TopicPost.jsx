@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import * as api from '../api';
 import { Avatar, Input, InputLabel, Button, Typography, CssBaseline, FormControl, Paper, withStyles } from '@material-ui/core';
 import { navigate } from '@reach/router';
+import PropTypes from 'prop-types';
 
 const styles = theme => ({
   main: {
@@ -100,6 +101,13 @@ class TopicPost extends Component {
       </main>
     )
   }
+};
 
-}
+TopicPost.propTypes = {
+  classes: PropTypes.object.isRequired,
+  user: PropTypes.object,
+  addNewTopic: PropTypes.func,
+};
+
+
 export default withStyles(styles)(TopicPost);

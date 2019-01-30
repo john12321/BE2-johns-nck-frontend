@@ -204,6 +204,8 @@ class Article extends Component {
 
 Article.propTypes = {
   classes: PropTypes.object.isRequired,
+  topics: PropTypes.array,
+  user: PropTypes.object,
 };
 
 export default withStyles(styles)(Article);

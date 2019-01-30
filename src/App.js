@@ -12,8 +12,6 @@ import { navigate } from '@reach/router';
 import TopicPost from './components/TopicPost';
 
 
-
-
 class App extends Component {
   state = {
     user: '',
@@ -80,7 +78,8 @@ class App extends Component {
         </Auth>
       </div>
     );
-  }
-}
+  };
+};
+
 
 export default App;

@@ -137,7 +137,11 @@ class Nav extends React.Component {
 }
 
 Nav.propTypes = {
-
+  classes: PropTypes.object.isRequired,
+  topics: PropTypes.array,
+  logoutLocalUser: PropTypes.func,
+  fetchTopics: PropTypes.func,
+  user: PropTypes.object,
 };
 
 export default withStyles(styles, { withTheme: true })(Nav);

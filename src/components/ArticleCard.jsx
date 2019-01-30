@@ -81,8 +81,6 @@ class ArticleCard extends Component {
 ArticleCard.propTypes = {
   classes: PropTypes.object.isRequired,
   article: PropTypes.object,
-  fetchArticles: PropTypes.func,
-
 };
 
 export default withStyles(styles)(ArticleCard);

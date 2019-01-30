@@ -102,6 +102,11 @@ class LoginForm extends Component {
       </main>
     )
   }
-}
+};
+
+LoginForm.propTypes = {
+  classes: PropTypes.object.isRequired,
+
+};
 
 export default withStyles(styles)(LoginForm);

@@ -168,7 +168,8 @@ class Articles extends Component {
 }
 
 Articles.propTypes = {
-  topics: PropTypes.array
+  topics: PropTypes.array,
+  user: PropTypes.object,
 };
 
 export default Articles;
