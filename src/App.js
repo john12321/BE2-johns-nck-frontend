@@ -14,7 +14,7 @@ import TopicPost from './components/TopicPost';
 
 class App extends Component {
   state = {
-    user: '',
+    user: {},
     topics: []
   }
 
@@ -55,7 +55,7 @@ class App extends Component {
 
   logoutLocalUser = () => {
     localStorage.clear();
-    this.setState({ user: '' });
+    this.setState({ user: {} });
     navigate('/')
   };
 

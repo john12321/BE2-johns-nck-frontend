@@ -22,7 +22,6 @@ class Articles extends Component {
     atEnd: false,
     sortBy: '',
     sortAsc: false,
-    // users: [],
   }
 
   componentDidMount() {
@@ -33,7 +32,7 @@ class Articles extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { atEnd, sortBy, sortAsc } = this.state;
+    const { sortBy } = this.state;
     const { topic } = this.props;
     if (sortBy !== prevState.sortBy) {
       this.setState({ articles: [], err: false }, this.fetchArticles)
@@ -86,14 +85,6 @@ class Articles extends Component {
       })
   }
 
-  // fetchUsers = () => {
-  //   api
-  //     .getUsers()
-  //     .then(users => {
-  //       this.setState({ users })
-  //     });
-  // };
-
   handleScroll = () => {
     const scrolledHeight = window.scrollY + window.innerHeight;
     const bottom = document.body.scrollHeight - 200;
@@ -128,17 +119,19 @@ class Articles extends Component {
       return (
         <Loader type="ThreeDots" color="white" height={200} width={200} />
       )
-    } else if (atEnd) {
+    } else if (atEnd && !err) {
       return (
         <>
           {cardContent}
           <ArticlePost topics={topics} user={this.props.user} sortBy={sortBy} />
         </>
       )
-    } else if (err) {
+    } else if (atEnd && err) {
       return (
         <>
-          <Typography>No articles for this topic yet. Be the first!</Typography>
+          <Card style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <Typography style={{ fontSize: 20 }}>No articles for this topic yet. Be the first!</Typography>
+          </Card>
           <ArticlePost topics={this.props.topics} user={this.props.user} topic={this.props.topic} />
         </>
       )

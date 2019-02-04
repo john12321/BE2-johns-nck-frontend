@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import * as api from "../api";
 import { navigate } from '@reach/router';
 import Vote from "./Vote";
-import { Card, CardHeader, CardContent, Typography, Button, CardActionArea, withStyles } from '@material-ui/core';
+import { Card, CardHeader, CardContent, Typography, Button, withStyles } from '@material-ui/core';
 import moment from 'moment';
 import DeleteIcon from '@material-ui/icons/Delete';
 import CommentPost from './CommentPost';
@@ -164,24 +164,24 @@ class Article extends Component {
               <div key={comment_id}>
                 <br />
                 <Card className="commentCard">
-                  <CardActionArea>
-                    <Typography gutterBottom variant="h5" component="h2">
-                      {/* Comment added {formattedDate} */}
-                      {`Comment posted: ${moment(created_at).startOf('second').fromNow()}`}
+                  {/* <CardActionArea> */}
+                  <Typography gutterBottom variant="h5" component="h2">
+                    {/* Comment added {formattedDate} */}
+                    {`Comment posted: ${moment(created_at).startOf('second').fromNow()}`}
+                  </Typography>
+                  <CardHeader subheader={author}>
+                  </CardHeader>
+                  <CardContent>
+                    <Typography >
+                      {body}
                     </Typography>
-                    <CardHeader subheader={author}>
-                    </CardHeader>
-                    <CardContent>
-                      <Typography >
-                        {body}
-                      </Typography>
-                      <br />
-                      <Typography >
-                        Comment id: {comment_id}
-                      </Typography>
-                    </CardContent>
                     <br />
-                  </CardActionArea>
+                    <Typography >
+                      Comment id: {comment_id}
+                    </Typography>
+                  </CardContent>
+                  <br />
+                  {/* </CardActionArea> */}
                   {author === user.username && (
                     <Button size="small" type="submit" onClick={() => this.removeItem(comment_id)} variant="contained" color="secondary" >
                       Delete comment
