@@ -35,18 +35,18 @@ class Articles extends Component {
     const { sortBy } = this.state;
     const { topic } = this.props;
     if (sortBy !== prevState.sortBy) {
-      this.setState({ articles: [], err: false }, this.fetchArticles)
+      this.setState({ articles: [], atEnd: false, err: false }, this.fetchArticles)
       window.scrollTo(0, 0);
     }
     else if (topic !== prevProps.topic) {
-      this.setState({ page: 1, articles: [], err: false }, this.fetchArticles);
+      this.setState({ page: 1, articles: [], atEnd: false, err: false }, this.fetchArticles);
       window.scrollTo(0, 0)
     }
   }
 
   componentWillUnmount() {
     window.removeEventListener('scroll', this.throttleScroll);
-    this.setState(({ page: 1, articles: [] })
+    this.setState(({ page: 1, articles: [], })
     )
   };
 
@@ -119,23 +119,21 @@ class Articles extends Component {
       return (
         <Loader type="ThreeDots" color="white" height={200} width={200} />
       )
-    } else if (atEnd && !err) {
+    } else if (err) {
       return (
         <>
-          {cardContent}
           <ArticlePost topics={topics} user={this.props.user} sortBy={sortBy} />
         </>
       )
-    } else if (atEnd && err) {
+    }
+    else if (atEnd && !err) {
       return (
         <>
-          <Card style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <Typography style={{ fontSize: 20 }}>No articles for this topic yet. Be the first!</Typography>
-          </Card>
           <ArticlePost topics={this.props.topics} user={this.props.user} topic={this.props.topic} />
         </>
       )
-    } else return (
+    }
+    else return (
       <>
         <Card style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', opacity: '0.9', backgroundColor: '#72BCD4' }}>
           <FormGroup style={{ paddingTop: 60 }} row>
