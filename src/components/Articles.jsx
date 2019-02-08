@@ -26,7 +26,6 @@ class Articles extends Component {
 
   componentDidMount() {
     this.fetchArticles();
-    // this.fetchUsers();
     window.scrollTo(0, 0);
     window.addEventListener('scroll', this.throttleScroll);
   }
@@ -35,7 +34,7 @@ class Articles extends Component {
     const { sortBy } = this.state;
     const { topic } = this.props;
     if (sortBy !== prevState.sortBy) {
-      this.setState({ articles: [], atEnd: false, err: false }, this.fetchArticles)
+      this.setState({ page: 1, articles: [], atEnd: false, err: false }, this.fetchArticles)
       window.scrollTo(0, 0);
     }
     else if (topic !== prevProps.topic) {
@@ -46,8 +45,6 @@ class Articles extends Component {
 
   componentWillUnmount() {
     window.removeEventListener('scroll', this.throttleScroll);
-    this.setState(({ page: 1, articles: [], })
-    )
   };
 
 
