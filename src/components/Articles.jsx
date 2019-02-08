@@ -21,7 +21,7 @@ class Articles extends Component {
     err: false,
     atEnd: false,
     sortBy: '',
-    sortAsc: false,
+    sortAsc: 'false',
   }
 
   componentDidMount() {

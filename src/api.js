@@ -26,8 +26,8 @@ export const postTopic = async (slug, description) => {
   return data.topic;
 };
 
-export const getArticles = async (topic, page, sortBy, sortAsc = true) => {
-  const URL = topic ? `${BASE_URL}/topics/${topic}/articles?p=${page}&sort_by=${sortBy}&sort_asc=${sortAsc}` : `${BASE_URL}/articles?p=${page}&sort_by=${sortBy}&sort_asc=${sortAsc}`;
+export const getArticles = async (topic, page, sortBy, sortAsc) => {
+  const URL = topic ? `${BASE_URL}/topics/${topic}/articles?p=${page}&sort_by=${sortBy}&sort_ascending=${sortAsc}` : `${BASE_URL}/articles?p=${page}&sort_by=${sortBy}&sort_ascending=${sortAsc}`;
   const { data } = await axios.get(URL);
   return data.articles;
 }
@@ -37,9 +37,9 @@ export const getArticle = async (article_id) => {
   return data.article;
 }
 
-export const getComments = async (article_id, page, sortAsc = false) => {
+export const getComments = async (article_id, page, sortAsc = 'false') => {
   const { data } = await axios.get(
-    `${BASE_URL}/articles/${article_id}/comments?p=${page}&sort_asc=${sortAsc}`
+    `${BASE_URL}/articles/${article_id}/comments?p=${page}&sort_ascending=${sortAsc}`
   );
   return data.comments;
 };
