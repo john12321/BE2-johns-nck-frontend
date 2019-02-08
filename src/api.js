@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-// const BASE_URL = "https://nc-knews-example-fixed.herokuapp.com/api";
 const BASE_URL = "https://johns-ncknews.herokuapp.com/api";
 
 
@@ -27,7 +26,7 @@ export const postTopic = async (slug, description) => {
   return data.topic;
 };
 
-export const getArticles = async (topic, page, sortBy, sortAsc = false) => {
+export const getArticles = async (topic, page, sortBy, sortAsc = true) => {
   const URL = topic ? `${BASE_URL}/topics/${topic}/articles?p=${page}&sort_by=${sortBy}&sort_asc=${sortAsc}` : `${BASE_URL}/articles?p=${page}&sort_by=${sortBy}&sort_asc=${sortAsc}`;
   const { data } = await axios.get(URL);
   return data.articles;
