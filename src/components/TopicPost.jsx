@@ -57,11 +57,9 @@ class TopicPost extends Component {
     api
       .postTopic(slug, description)
       .then(topic => {
-        navigate(`/topics/${topic.slug}`)
-        this.props.addNewTopic(topic);
         this.setState({ slug: "", description: "" });
-
-
+        this.props.addNewTopic(topic);
+        navigate('/');
       })
       .catch((error) => {
         this.setState({ err: true });
