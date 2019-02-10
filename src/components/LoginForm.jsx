@@ -34,6 +34,7 @@ const styles = theme => ({
   submit: {
     marginTop: theme.spacing.unit * 3,
   },
+
 });
 
 
@@ -82,7 +83,7 @@ class LoginForm extends Component {
           <form className={classes.form} onSubmit={this.handleSubmit}>
             <FormControl margin="normal" required fullWidth>
               <InputLabel htmlFor="username">Username</InputLabel>
-              <Input id="username" value={username} name="username" autoComplete="username" autoFocus onChange={this.handleChange} />
+              <Input className="user-input" id="username" value={username} name="username" autoComplete="username" autoFocus onChange={this.handleChange} />
             </FormControl>
             <Button
               type="submit"
