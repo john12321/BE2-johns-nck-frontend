@@ -81,10 +81,15 @@ class Nav extends React.Component {
           <Link to='/topic/add' style={{ textDecoration: 'none' }}>
             <ListItem button style={{ backgroundColor: '#72BCD4' }} onClick={() => this.handleDrawerToggle()}>
               <ListItemIcon><AddIcon /></ListItemIcon>
-              <ListItemText primary={<Typography variant="h6" style={{ color: '#fff' }}>New Topic</Typography>} />
+              <ListItemText primary={<Typography variant="subtitle1" style={{ color: '#fff' }}>New Topic</Typography>} />
             </ListItem>
           </Link>
-
+          <Link to='/article/add' style={{ textDecoration: 'none' }}>
+            <ListItem button style={{ backgroundColor: '#777' }} onClick={() => this.handleDrawerToggle()}>
+              <ListItemIcon><AddIcon /></ListItemIcon>
+              <ListItemText primary={<Typography variant="subtitle1" style={{ color: '#fff' }}>New Article</Typography>} />
+            </ListItem>
+          </Link>
         </List>
         <Divider />
       </>
