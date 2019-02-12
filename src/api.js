@@ -72,8 +72,8 @@ export const postArticle = async (newArticle, topic) => {
   return data.article;
 };
 
-export const deleteItem = async (article_id, comment_id = null) => {
-  const URL = (comment_id !== null)
+export const deleteItem = async (article_id, comment_id) => {
+  const URL = (comment_id > 0)
     ? `${BASE_URL}/articles/${article_id}/comments/${comment_id}`
     : `${BASE_URL}/articles/${article_id}`;
   await axios.delete(URL);

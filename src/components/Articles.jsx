@@ -20,7 +20,7 @@ class Articles extends Component {
     page: 1,
     err: false,
     atEnd: false,
-    sortBy: '',
+    sortBy: 'created_at',
     sortAsc: 'false',
   }
 
@@ -78,7 +78,7 @@ class Articles extends Component {
       })
       .catch(() => {
         window.removeEventListener('scroll', this.throttleScroll);
-        this.setState({ err: true, atEnd: true, articles: [] })
+        this.setState({ err: true, atEnd: true, articles: [], isLoading: false })
       })
   }
 
