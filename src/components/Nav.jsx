@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from '@reach/router';
 
-import { AppBar, Button, CssBaseline, Divider, Drawer, Hidden, IconButton, List, ListItem, ListItemIcon, ListItemText, Toolbar, Typography, withStyles, Tooltip } from '@material-ui/core';
+import { AppBar, Avatar, Button, CssBaseline, Divider, Drawer, Hidden, IconButton, List, ListItem, ListItemIcon, ListItemText, Toolbar, Typography, withStyles, Tooltip } from '@material-ui/core';
 
 import MenuIcon from '@material-ui/icons/Menu';
 import AddIcon from '@material-ui/icons/Add';
@@ -71,6 +71,11 @@ class Nav extends React.Component {
     const drawer = (
       <>
         <div className={classes.toolbar} />
+        <div style={{ padding: 5 }}>
+          <Avatar style={{ height: 40, width: 40 }}>
+            <img src={user.avatar_url} alt={user.username} style={{ height: 60, width: 60, padding: 0 }}></img>
+          </Avatar>logged in as {user.username}
+        </div>
         <List >
           {topics.map(({ slug }) => (
             <ListItem button key={slug} component={Link} to={`/topics/${slug}`} style={{ textDecoration: 'none', backgroundColor: '#fff' }} onClick={() => this.handleDrawerToggle()}>
